@@ -8,6 +8,348 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #2c3e50; background: #fff; }
         .slide { padding: 40px 60px; min-height: 100vh; page-break-after: always; }
+        
+        /* Hero Slide Styles */
+        .hero-slide { 
+            padding: 0; 
+            position: relative; 
+            background: linear-gradient(135deg, #3c3c3c 0%, #1a1a1a 50%, #000000 100%); 
+            color: white; 
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.1;
+        }
+        
+        .hero-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(255,0,102,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,150,255,0.1) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridMove 20s linear infinite;
+        }
+        
+        .hero-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255,0,102, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(135,85,255, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(0,150,255, 0.15) 0%, transparent 50%);
+            animation: particleFloat 15s ease-in-out infinite alternate;
+        }
+        
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(60px, 60px); }
+        }
+        
+        @keyframes particleFloat {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        .hero-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px;
+            z-index: 2;
+            position: relative;
+        }
+        
+        .hero-badge {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        
+        .award-badge {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: rgba(255,0,102,0.1);
+            backdrop-filter: blur(15px);
+            padding: 20px 40px;
+            border-radius: 50px;
+            border: 2px solid rgba(255,0,102,0.3);
+            box-shadow: 0 8px 32px rgba(255,0,102,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .award-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(255,0,102,0.3);
+        }
+        
+        .award-icon {
+            font-size: 2rem;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            0% { filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)) drop-shadow(0 0 10px rgba(255,0,102,0.3)); }
+            100% { filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)) drop-shadow(0 0 20px rgba(255,0,102,0.6)); }
+        }
+        
+        .award-info {
+            text-align: center;
+        }
+        
+        .award-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .award-category {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #cbd5e1;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .moldova-flag {
+            font-size: 2rem;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+            animation: wave 3s ease-in-out infinite;
+        }
+        
+        @keyframes wave {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+        
+        .hero-logo {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            filter: drop-shadow(0 4px 20px rgba(0,0,0,0.3));
+        }
+        
+        .hero-logo svg {
+            transition: transform 0.3s ease;
+        }
+        
+        .hero-logo:hover svg {
+            transform: scale(1.05);
+        }
+        
+        .hero-main {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .hero-title {
+            margin-bottom: 30px;
+        }
+        
+        .title-line {
+            display: block;
+            font-size: 4.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+        
+        .title-subtitle {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: #f0f0f0;
+            letter-spacing: 0.5px;
+        }
+        
+        .hero-description {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            color: #f0f0f0;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+            text-align: center;
+        }
+        
+        .hero-value-props {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .value-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(0,150,255,0.1);
+            padding: 15px 25px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0,150,255,0.3);
+        }
+        
+        .value-icon {
+            font-size: 1.5rem;
+        }
+        
+        .value-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .hero-stats-modern {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin: 50px 0;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .stat-modern {
+            text-align: center;
+            background: rgba(51,204,204,0.05);
+            padding: 30px 20px;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(51,204,204,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .stat-modern:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(51,204,204,0.3);
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ff0066 0%, #8755ff 50%, #0096ff 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+        
+        .stat-desc {
+            font-size: 0.9rem;
+            color: #f0f0f0;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+        
+        .hero-quote {
+            text-align: center;
+            font-size: 1.4rem;
+            font-style: italic;
+            color: #f0f0f0;
+            background: rgba(135,85,255,0.1);
+            padding: 30px 40px;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(135,85,255,0.3);
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .hero-quote::before {
+            content: '"';
+            font-size: 4rem;
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            opacity: 0.3;
+            font-family: serif;
+            color: #8755ff;
+        }
+        
+        .hero-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 60px;
+            background: rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            z-index: 2;
+            position: relative;
+        }
+        
+        .company-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .company-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 5px;
+        }
+        
+        .company-tagline {
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            font-weight: 400;
+        }
+        
+        .scroll-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .scroll-text {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .scroll-arrow {
+            font-size: 1.2rem;
+            color: #ff0066;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
         .slide-header { display: flex; align-items: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 3px solid #f1f5f9; }
         .slide-number { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); color: white; width: 60px; height: 60px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 700; margin-right: 30px; font-size: 24px; }
         h1 { color: #1e293b; font-size: 2.8rem; font-weight: 700; line-height: 1.1; margin-bottom: 10px; }
@@ -18,7 +360,8 @@
         .stat-number { font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
         .stat-label { font-size: 0.9rem; opacity: 0.9; font-weight: 500; }
         .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 25px 0; }
-        .feature-card { background: #fff; padding: 25px; border-radius: 12px; border: 2px solid #e2e8f0; }
+        .feature-card { background: #fff; padding: 25px; border-radius: 12px; border: 2px solid #e2e8f0; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .feature-card:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
         .feature-icon { font-size: 2.2rem; margin-bottom: 15px; }
         .feature-title { font-size: 1.1rem; font-weight: 600; color: #1e293b; margin-bottom: 12px; }
         .feature-description { color: #64748b; font-size: 0.9rem; line-height: 1.4; }
@@ -46,67 +389,171 @@
         .section-divider { height: 2px; background: linear-gradient(90deg, transparent 0%, #cbd5e1 50%, transparent 100%); margin: 25px 0; }
         .cta-section { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); color: white; padding: 35px; border-radius: 12px; text-align: center; margin-top: 25px; }
         .contact-info { background: rgba(255,255,255,0.1); padding: 25px; border-radius: 12px; margin-top: 25px; border: 1px solid rgba(255,255,255,0.2); }
+        .problem-highlight { background: #fef2f2; border: 2px solid #fecaca; border-left: 4px solid #dc2626; padding: 25px; border-radius: 12px; margin: 20px 0; }
+        .solution-highlight { background: #f0fdf4; border: 2px solid #bbf7d0; border-left: 4px solid #16a34a; padding: 25px; border-radius: 12px; margin: 20px 0; }
         @media print { .slide { page-break-after: always; } }
-        @media (max-width: 1024px) { .slide { padding: 30px 40px; } h1 { font-size: 2.4rem; } .features-grid, .innovation-points, .metrics-grid { grid-template-columns: 1fr; } .hero-stats { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 768px) { .slide { padding: 25px 20px; } h1 { font-size: 2rem; } .hero-stats { grid-template-columns: 1fr; } }
+        @media (max-width: 1024px) { 
+            .slide { padding: 30px 40px; } 
+            h1 { font-size: 2.4rem; } 
+            .features-grid, .innovation-points, .metrics-grid { grid-template-columns: 1fr; } 
+            .hero-stats { grid-template-columns: repeat(2, 1fr); }
+            
+            /* Hero responsive */
+            .hero-content { padding: 40px 30px; }
+            .hero-logo svg { width: 240px; height: 72px; }
+            .title-line { font-size: 3.5rem; }
+            .title-subtitle { font-size: 1.4rem; }
+            .hero-description { font-size: 1.1rem; }
+            .hero-stats-modern { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+            .hero-value-props { gap: 30px; }
+            .hero-footer { padding: 20px 30px; flex-direction: column; gap: 20px; text-align: center; }
+        }
+        @media (max-width: 768px) { 
+            .slide { padding: 25px 20px; } 
+            h1 { font-size: 2rem; } 
+            .hero-stats { grid-template-columns: 1fr; } 
+            .slide-header { flex-direction: column; text-align: center; } 
+            .slide-number { margin: 0 0 20px 0; }
+            
+            /* Hero mobile */
+            .hero-content { padding: 30px 20px; }
+            .hero-logo svg { width: 200px; height: 60px; }
+            .title-line { font-size: 2.8rem; }
+            .title-subtitle { font-size: 1.2rem; }
+            .hero-description { font-size: 1rem; }
+            .hero-stats-modern { grid-template-columns: 1fr; gap: 15px; }
+            .hero-value-props { flex-direction: column; align-items: center; gap: 15px; }
+            .hero-footer { padding: 20px; }
+            .hero-badge { margin-bottom: 30px; }
+            .award-badge { padding: 15px 30px; gap: 15px; }
+            .award-icon, .moldova-flag { font-size: 1.5rem; }
+            .award-title { font-size: 1rem; }
+            .award-category { font-size: 0.8rem; }
+        }
     </style>
 </head>
 <body>
-    <!-- Slide 1 -->
-    <div class="slide">
-        <div class="slide-header">
-            <div class="slide-number">1</div>
-            <div class="brand-header">
-                <h1>Adt Infra Hub</h1>
-                <div class="brand-tagline">From 15+ Years of Infrastructure Evolution to Global Innovation</div>
-                <div class="moldova-badge">🇲🇩 100% Moldova-Based Development Team</div>
+    <!-- Slide 1: Hero -->
+    <div class="slide hero-slide">
+        <div class="hero-background">
+            <div class="hero-particles"></div>
+            <div class="hero-grid"></div>
+        </div>
+        
+        <div class="hero-content">
+            <div class="hero-badge">
+                <div class="award-badge">
+                    <div class="award-icon">🏆</div>
+                    <div class="award-info">
+                        <div class="award-title">MITP Awards 2025</div>
+                        <div class="award-category">Best Startup Category</div>
+                    </div>
+                    <div class="moldova-flag">🇲🇩</div>
+                </div>
+            </div>
+            
+            <div class="hero-main">
+                <div class="hero-logo">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="280" height="84" viewBox="0 0 300 60">
+                        <defs>
+                            <linearGradient id="logoTextGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color: rgb(255, 255, 255);"></stop>
+                                <stop offset="100%" style="stop-color: rgb(226, 232, 240);"></stop>
+                            </linearGradient>
+                        </defs>
+                        <g transform="translate(10, 15) scale(1.2)">
+                            <path d="M0,23.1l8-4.6L0,13.8l8-4.6L0,4.6L8,0l24,13.8L8,27.7L0,23.1z" fill="#ffffff"></path>
+                            <path d="M22.5,17.6L22.5,17.6l-10.4-6l0,0L8,9.2l16,18.5V18.5L22.5,17.6z" fill="#FF0066"></path>
+                        </g>
+                        <text x="70" y="38" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="url(#logoTextGradient)" dominant-baseline="middle">Adt Infra Hub</text>
+                    </svg>
+                </div>
+                
+                <h1 class="hero-title">
+                    <span class="title-subtitle">Infrastructure Evolution. Moldova Innovation.</span>
+                </h1>
+                
+                <p class="hero-description">
+                    From 15+ years of enterprise infrastructure challenges to world-class Moldova-developed solution. 
+                    <strong>Born from authentic experience. Built by 100% Moldova team. Ready for global impact.</strong>
+                </p>
+                
+                <div class="hero-value-props">
+                    <div class="value-item">
+                        <div class="value-icon">🎯</div>
+                        <div class="value-text">Proven at Scale</div>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-icon">⚡</div>
+                        <div class="value-text">Enterprise Ready</div>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-icon">🚀</div>
+                        <div class="value-text">Global Vision</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-stats-modern">
+                <div class="stat-modern">
+                    <div class="stat-value">1,000+</div>
+                    <div class="stat-desc">Servers<br>Managed</div>
+                </div>
+                <div class="stat-modern">
+                    <div class="stat-value">$15B+</div>
+                    <div class="stat-desc">Market<br>Opportunity</div>
+                </div>
+                <div class="stat-modern">
+                    <div class="stat-value">15+</div>
+                    <div class="stat-desc">Years<br>Experience</div>
+                </div>
+                <div class="stat-modern">
+                    <div class="stat-value">100%</div>
+                    <div class="stat-desc">Moldova<br>Team</div>
+                </div>
+            </div>
+            
+            <div class="hero-quote">
+                "We didn't guess what enterprises need — we lived it, solved it, and built it in Moldova."
             </div>
         </div>
         
-        <div class="value-props">
-            <div class="value-prop">+ Control</div>
-            <div class="value-prop">+ Transparency</div>
-            <div class="value-prop">+ Infrastructure Growth</div>
-        </div>
-        
-        <div class="hero-stats">
-            <div class="stat-card"><div class="stat-number">1,000+</div><div class="stat-label">Servers Managed</div></div>
-            <div class="stat-card"><div class="stat-number">15+</div><div class="stat-label">Years of Evolution</div></div>
-            <div class="stat-card"><div class="stat-number">4</div><div class="stat-label">Jurisdictions (US, EU, UA, MD)</div></div>
-            <div class="stat-card"><div class="stat-number">100+</div><div class="stat-label">Engineers Supported</div></div>
-        </div>
-
-        <h3>The Adtelligent Group Journey</h3>
-        <p style="font-size: 1rem; color: #475569; margin-bottom: 20px;">Adtelligent Group represents one of the most remarkable infrastructure evolution stories in international tech. Founded in Ukraine in 2008 with "a few PHP servers," the company evolved into a sophisticated multi-jurisdictional technology group managing advertising platforms across the US, EU, Ukraine, and Moldova. <strong>The Moldova office, established in 2023, became the birthplace of Adt Infra Hub</strong> - showcasing how Moldova's tech talent can solve global enterprise challenges.</p>
-
-        <div class="evolution-timeline">
-            <div class="timeline-item"><div class="timeline-year">2008</div><div class="timeline-description">Founded in Ukraine as typical tech startup: rented servers, PHP code, minimal monitoring</div></div>
-            <div class="timeline-item"><div class="timeline-year">2015</div><div class="timeline-description">Growth forced systemization: Zabbix, Jenkins, SSH keys, ~100 servers</div></div>
-            <div class="timeline-item"><div class="timeline-year">2017-2018</div><div class="timeline-description">Major tech transitions: NodeJS→Go, MongoDB→ClickHouse, GitLab CI/CD</div></div>
-            <div class="timeline-item"><div class="timeline-year">2020+</div><div class="timeline-description">Standardization: Ubuntu 22.04, Docker, systemd, unified architecture</div></div>
-            <div class="timeline-item"><div class="timeline-year">2023</div><div class="timeline-description">Moldova office established - birthplace of Adt Infra Hub development</div></div>
-            <div class="timeline-item"><div class="timeline-year">2024-2025</div><div class="timeline-description">Enterprise scale: NOC teams (L1-L4), multi-jurisdiction operations, 1000+ servers</div></div>
-        </div>
-
-        <h3>The Strategic Vision</h3>
-        <div class="strategic-quote">
-            "The main goal is creating our own infrastructure management tool. It should unite everything: visibility, automation, inventory, and control — in one interface. No scripts, no Excel files."
-            <div class="quote-attribution">— Adtelligent Group Strategic Planning, 2025</div>
+        <div class="hero-footer">
+            <div class="company-info">
+                <div class="company-name">Adtelligent Group</div>
+                <div class="company-tagline">Transforming Infrastructure Management Globally</div>
+            </div>
+            <div class="scroll-indicator">
+                <div class="scroll-text">Discover Our Story</div>
+                <div class="scroll-arrow">↓</div>
+            </div>
         </div>
     </div>
 
-    <!-- Slide 2 -->
+    <!-- Slide 2: Problem & Solution -->
     <div class="slide">
         <div class="slide-header">
             <div class="slide-number">2</div>
-            <h2>The Enterprise Infrastructure Evolution Challenge</h2>
+            <h2>The Global Infrastructure Challenge</h2>
         </div>
 
-        <h3>The Problem: Real Enterprise Pain Points</h3>
+        <div class="problem-highlight">
+            <h3 style="color: #dc2626; margin-bottom: 15px;">The Universal Problem</h3>
+            <p>Every growing tech company faces the same evolution: What starts as simple server management becomes enterprise-scale infrastructure complexity. Current solutions are either too simple for enterprise needs or too complex for operational efficiency.</p>
+        </div>
+
+        <div class="metrics-grid">
+            <div class="metric-item"><div class="metric-value">$15B+</div><div class="metric-label">Global Infrastructure Market</div></div>
+            <div class="metric-item"><div class="metric-value">100%</div><div class="metric-label">Problem Universality</div></div>
+            <div class="metric-item"><div class="metric-value">40%</div><div class="metric-label">Management Overhead</div></div>
+            <div class="metric-item"><div class="metric-value">25%</div><div class="metric-label">Potential Cost Savings</div></div>
+        </div>
+
+        <h3>Adtelligent's Real Enterprise Pain Points</h3>
         <div class="innovation-points">
             <div class="innovation-card">
                 <div class="innovation-title">15+ Years of Accumulated Complexity</div>
-                <div class="innovation-description">Adtelligent's growth from startup to "dozens of teams, hundreds of servers, billions of requests" created layers of infrastructure complexity that existing tools can't handle unified.</div>
+                <div class="innovation-description">Growth from startup to "dozens of teams, hundreds of servers, billions of requests" created layers of infrastructure complexity that existing tools can't handle unified.</div>
             </div>
             <div class="innovation-card">
                 <div class="innovation-title">Multi-Jurisdiction Operations</div>
@@ -122,21 +569,13 @@
             </div>
         </div>
 
-        <div class="section-divider"></div>
-
-        <h3>The Global Market Reality</h3>
-        <p style="background: #f8fafc; padding: 25px; border-radius: 12px; border: 2px solid #e2e8f0; margin: 20px 0; font-size: 1rem; color: #475569;">
-            <strong style="color: #1e293b;">Every growing tech company faces the same evolution:</strong> What starts as simple server management becomes enterprise-scale infrastructure complexity. Current solutions are either too simple for enterprise needs or too complex for operational efficiency. The global infrastructure management market is $15B+ because this problem is universal.
-        </p>
-
-        <h3>Our Solution: Adt Infra Hub</h3>
-        <div class="startup-highlight">
-            <h4 style="margin-bottom: 15px; color: #1e293b; font-size: 1.2rem;">Born from Authentic Experience, Built by Moldova Excellence</h4>
-            <p style="color: #475569; font-size: 1rem;">Adt Infra Hub isn't theoretical - it's the materialization of Adtelligent's strategic vision, developed entirely by our 100% Moldova-based team since the Moldova office establishment in 2023. We didn't guess what enterprises need; we lived the 15+ year evolution from Ukrainian startup to global enterprise infrastructure management, and solved it with Moldovan innovation.</p>
+        <div class="solution-highlight">
+            <h3 style="color: #16a34a; margin-bottom: 15px;">Our Solution: Born from Experience</h3>
+            <p>Adt Infra Hub isn't theoretical - it's the materialization of Adtelligent's strategic vision, developed entirely by our 100% Moldova-based team since the Moldova office establishment in 2023. We didn't guess what enterprises need; we lived the 15+ year evolution from Ukrainian startup to global enterprise infrastructure management, and solved it with Moldovan innovation.</p>
         </div>
     </div>
 
-    <!-- Slide 3 -->
+    <!-- Slide 3: Features -->
     <div class="slide">
         <div class="slide-header">
             <div class="slide-number">3</div>
@@ -178,11 +617,11 @@
 
         <div class="section-divider"></div>
 
-        <h3>Advanced Infrastructure Support</h3>
+        <h3>Advanced 2025 Technology Initiatives</h3>
         <div class="innovation-points">
             <div class="innovation-card">
-                <div class="innovation-title">2025 Technology Initiatives Ready</div>
-                <div class="innovation-description">Platform designed to support cutting-edge infrastructure: VRRP load balancing (Mikrotik), TLS offload on ASIC cards, TCP offload on DPU, DPDK optimization testing.</div>
+                <div class="innovation-title">Cutting-Edge Infrastructure Ready</div>
+                <div class="innovation-description">Platform designed to support: VRRP load balancing (Mikrotik), TLS offload on ASIC cards, TCP offload on DPU, DPDK optimization testing - showcasing Moldova's capability in advanced technology.</div>
             </div>
             <div class="innovation-card">
                 <div class="innovation-title">Enterprise Architecture Evolution</div>
@@ -191,14 +630,18 @@
         </div>
     </div>
 
-    <!-- Slide 4 -->
+    <!-- Slide 4: Moldova Excellence -->
     <div class="slide">
         <div class="slide-header">
             <div class="slide-number">4</div>
-            <h2>Technical Excellence: Moldova's World-Class Engineering</h2>
+            <h2>Moldova's World-Class Engineering Excellence</h2>
         </div>
 
-        <h3>Four Pillars of Innovation</h3>
+        <div class="strategic-quote">
+            "100% Moldova-Developed Innovation: When Adtelligent established their Moldova office in 2023, our team didn't just build software - we solved authentic enterprise challenges that the company faced through 15+ years of global growth. This showcases Moldova's capability to develop world-class solutions for international companies. Every line of code, every architectural decision, every innovation in Adt Infra Hub comes from Moldovan talent solving real-world enterprise problems."
+        </div>
+
+        <h3>Four Pillars of Technical Innovation</h3>
         <div class="innovation-points">
             <div class="innovation-card">
                 <div class="innovation-title">1. Strategic Business Necessity</div>
@@ -220,12 +663,7 @@
 
         <div class="section-divider"></div>
 
-        <h3>Moldova's Technical Excellence</h3>
-        <div class="strategic-quote">
-            "100% Moldova-Developed Innovation: When Adtelligent established their Moldova office in 2023, our team didn't just build software - we solved authentic enterprise challenges that the company faced through 15+ years of global growth. This showcases Moldova's capability to develop world-class solutions for international companies. Every line of code, every architectural decision, every innovation in Adt Infra Hub comes from Moldovan talent solving real-world enterprise problems."
-        </div>
-
-        <h3>Technical Architecture Highlights</h3>
+        <h3>Technical Architecture Excellence</h3>
         <div class="metrics-grid">
             <div class="metric-item"><div class="metric-value">Microservices</div><div class="metric-label">Scalable Architecture</div></div>
             <div class="metric-item"><div class="metric-value">API-First</div><div class="metric-label">Integration Ready</div></div>
@@ -234,14 +672,14 @@
         </div>
     </div>
 
-    <!-- Slide 5 -->
+    <!-- Slide 5: Market Impact -->
     <div class="slide">
         <div class="slide-header">
             <div class="slide-number">5</div>
-            <h2>Market Impact & Proven Business Value</h2>
+            <h2>Proven Market Impact & Business Results</h2>
         </div>
 
-        <h3>Proven Results at Scale</h3>
+        <h3>Measurable Success Metrics</h3>
         <div class="metrics-grid">
             <div class="metric-item"><div class="metric-value">40%</div><div class="metric-label">Reduction in Management Overhead</div></div>
             <div class="metric-item"><div class="metric-value">25%</div><div class="metric-label">Infrastructure Cost Savings</div></div>
@@ -249,9 +687,6 @@
             <div class="metric-item"><div class="metric-value">1000+</div><div class="metric-label">Servers Under Management</div></div>
         </div>
 
-        <div class="section-divider"></div>
-
-        <h3>Customer Success Story</h3>
         <div class="strategic-quote">
             "After 15+ years of infrastructure evolution (2008-2025), from Ukrainian startup to global enterprise, Adtelligent Group strategically identified the need for a unified management platform. When they established the Moldova office in 2023, Adt Infra Hub was developed by our Moldova team as the direct answer to this strategic vision. The platform now manages 1,000+ servers across multiple jurisdictions, supporting 'dozens of teams, hundreds of servers, billions of requests' with proven efficiency improvements and enterprise-grade reliability."
         </div>
@@ -271,93 +706,57 @@
                 <div class="innovation-description"><strong>Phase 1:</strong> Enterprise sales in Moldova/Eastern Europe (proven market fit)<br><strong>Phase 2:</strong> EU/US expansion via strategic partnerships<br><strong>Phase 3:</strong> Global platform with regional compliance features</div>
             </div>
             <div class="innovation-card">
-                <div class="innovation-title">💰 Revenue Potential</div>
-                <div class="innovation-description"><strong>SaaS Model:</strong> $100-1,000/month per enterprise customer<br><strong>Market Validation:</strong> Internal deployment proves product-market fit<br><strong>Growth Path:</strong> Proven scalability from startup to enterprise needs</div>
+                <div class="innovation-title">💰 Revenue Model</div>
+                <div class="innovation-description"><strong>SaaS Subscription:</strong> $100-1,000/month per enterprise customer based on scale<br><strong>Market Validation:</strong> Internal deployment proves product-market fit<br><strong>Growth Path:</strong> Proven scalability from startup to enterprise needs</div>
             </div>
         </div>
     </div>
 
-    <!-- Slide 6 -->
+    <!-- Slide 6: MITP Awards Perfect Fit -->
     <div class="slide">
         <div class="slide-header">
             <div class="slide-number">6</div>
-            <h2>Startup Growth: From Proven Solution to Global Platform</h2>
+            <h2>Perfect Embodiment of MITP Awards Excellence</h2>
         </div>
 
-        <h3>Revenue Model & Financial Projections</h3>
+        <h3>Why Adt Infra Hub Represents the Best of Moldova IT</h3>
         <div class="innovation-points">
             <div class="innovation-card">
-                <div class="innovation-title">🔄 SaaS Revenue Model</div>
-                <div class="innovation-description"><strong>Pricing Tiers:</strong> $100-1,000/month based on server count and features<br><strong>Enterprise Plans:</strong> Custom pricing for 1000+ servers with dedicated support<br><strong>Revenue Streams:</strong> Subscriptions, professional services, custom integrations</div>
+                <div class="innovation-title">✅ Authentic Moldova Innovation</div>
+                <div class="innovation-description">Genuine local innovation solving global challenges with homegrown talent - 100% Moldova-based team developing world-class enterprise solutions that compete internationally.</div>
             </div>
             <div class="innovation-card">
-                <div class="innovation-title">📊 Growth Projections</div>
-                <div class="innovation-description"><strong>2025:</strong> Platform commercialization, 15 enterprise customers, $150K ARR<br><strong>2026:</strong> 50 customers across EU/Moldova, $500K ARR<br><strong>2027:</strong> 100+ customers, international presence, $1.5M+ ARR</div>
+                <div class="innovation-title">🌟 World-Class Technical Excellence</div>
+                <div class="innovation-description">Technical excellence that competes and wins on the global stage - proven with 1,000+ servers managed, enterprise-grade reliability, and advanced technology implementation.</div>
             </div>
             <div class="innovation-card">
-                <div class="innovation-title">💸 Funding Requirements</div>
-                <div class="innovation-description"><strong>Seeking:</strong> €500K seed funding<br><strong>Use:</strong> Sales team expansion, marketing, platform scaling, international compliance<br><strong>Target Investors:</strong> EU/US VCs focused on B2B SaaS and infrastructure</div>
+                <div class="innovation-title">📈 Proven Market Impact</div>
+                <div class="innovation-description">Real results from years of enterprise infrastructure management experience - 40% efficiency gains, 25% cost reduction, 99.8% uptime achieved at massive scale.</div>
             </div>
             <div class="innovation-card">
-                <div class="innovation-title">🏆 Startup Validation</div>
-                <div class="innovation-description"><strong>Product-Market Fit:</strong> Proven with Adtelligent deployment<br><strong>Customer Retention:</strong> 100% (internal customer)<br><strong>Development Timeline:</strong> 2023-2025 (Moldova office inception to commercial launch)</div>
+                <div class="innovation-title">🚀 Local to Global Transformation</div>
+                <div class="innovation-description">Converting local expertise into international opportunity - from Moldova office (2023) to global platform ready for international markets and enterprise customers.</div>
             </div>
         </div>
 
-        <div class="section-divider"></div>
-
-        <h3>Team & Intellectual Property</h3>
-        <div class="strategic-quote">
-            "100% Moldova-based experienced developers with deep infrastructure knowledge and proven track record managing enterprise-scale deployments. This showcases Moldova's world-class IT talent and our capability to compete globally. Our IP assets include proprietary agent technology, evolution-aware algorithms, and multi-jurisdiction orchestration framework developed locally and ready for international patent protection."
-        </div>
-    </div>
-
-    <!-- Slide 7 -->
-    <div class="slide">
-        <div class="slide-header">
-            <div class="slide-number">7</div>
-            <h2>Why Adt Infra Hub Embodies MITP Awards Excellence</h2>
-        </div>
-
-        <h3>Perfect Alignment with "Best Startup" Criteria</h3>
-        <div class="innovation-points">
-            <div class="innovation-card">
-                <div class="innovation-title">✅ Proven Innovation Excellence</div>
-                <div class="innovation-description">Successfully developed by 100% Moldova-based team and deployed at massive scale (1,000+ servers) - demonstrating both technical innovation and authentic market validation with real enterprise customer.</div>
-            </div>
-            <div class="innovation-card">
-                <div class="innovation-title">🚀 Massive Market Potential</div>
-                <div class="innovation-description">Transitioning from internal strategic tool to commercial SaaS platform targeting global enterprise market - enormous scalability potential in underserved infrastructure management space.</div>
-            </div>
-            <div class="innovation-card">
-                <div class="innovation-title">💼 Proven Business Model</div>
-                <div class="innovation-description">Clear SaaS subscription model with demonstrated value proposition - 40% efficiency gains, 25% cost reduction, 99.8% uptime already proven at enterprise scale.</div>
-            </div>
-            <div class="innovation-card">
-                <div class="innovation-title">👥 World-Class Moldova Team</div>
-                <div class="innovation-description">100% Moldova-based development team with deep infrastructure management expertise gained through 15+ years of real enterprise evolution, showcasing our country's exceptional IT capabilities on the global stage.</div>
-            </div>
-        </div>
-
-        <div class="section-divider"></div>
-
-        <h3>Moldova's Global Innovation Story</h3>
         <div class="startup-highlight">
-            <h4 style="margin-bottom: 15px; color: #1e293b; font-size: 1.2rem;">From Moldova to the World: A Success Story</h4>
+            <h4 style="margin-bottom: 15px; color: #1e293b; font-size: 1.2rem;">Moldova's Global Innovation Success Story</h4>
             <p style="color: #475569; font-size: 1rem;">Adt Infra Hub represents everything MITP Awards celebrates: authentic Moldova innovation solving global challenges, world-class technical excellence, proven market impact, and the transformation of local expertise into international opportunity. We're not just building a startup - we're proving Moldova's place in the global technology leadership.</p>
         </div>
 
+        <div class="section-divider"></div>
+
         <div class="cta-section">
-            <h3 style="color: white; margin-bottom: 15px;">Ready to Scale Beyond Internal Success</h3>
-            <p style="font-size: 1.1rem; margin-bottom: 20px;">From proven internal solution to market-ready startup - Adt Infra Hub represents the best of Moldova's IT innovation, ready to revolutionize how enterprises manage their server infrastructure globally.</p>
+            <h3 style="color: white; margin-bottom: 15px;">From Proven Internal Solution to Market-Ready Global Platform</h3>
+            <p style="font-size: 1.1rem; margin-bottom: 20px;">Adt Infra Hub represents the best of Moldova's IT innovation, ready to revolutionize how enterprises manage their server infrastructure globally.</p>
             
             <div class="contact-info">
-                <h4 style="margin-bottom: 10px; color: white;">Application Category: Best Startup</h4>
+                <h4 style="margin-bottom: 15px; color: white;">Application Category: Best Startup</h4>
                 <p><strong>Company:</strong> ADS INTELLIGENCE MEDIA</p>
                 <p><strong>Email:</strong> info@adtintelligent.com</p>
                 <p><strong>Phone:</strong> +1 833 222 2102</p>
                 <p><strong>Website:</strong> www.adtintelligent.com</p>
-                <p>Copyright © 2025 Adtelligent™. All rights reserved.                </p>
+                <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.8;">Copyright © 2025 Adtelligent™. All rights reserved.</p>
             </div>
         </div>
     </div>
