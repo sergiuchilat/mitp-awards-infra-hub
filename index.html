@@ -1,935 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adt Infra Hub - MITP Awards 2025</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #2c3e50; background: #fff; }
-        .slide { padding: 40px 60px; min-height: 100vh; page-break-after: always; }
-        
-        /* Navigation Bar Styles */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(30, 41, 59, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            z-index: 1000;
-            padding: 12px 0;
-            transition: all 0.3s ease;
-        }
-        
-        .navbar-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 60px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .navbar-logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            color: white;
-            font-weight: 700;
-            font-size: 1.8rem;
-            text-decoration: none;
-            overflow: visible;
-        }
-        
-        .navbar-logo svg {
-            width: 200px;
-            height: 60px;
-            transition: transform 0.3s ease;
-        }
-        
-        .navbar-logo:hover svg {
-            transform: scale(1.05);
-        }
-        
-        .navbar-nav {
-            display: flex;
-            gap: 30px;
-            align-items: center;
-        }
-        
-        .nav-link {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-            padding: 8px 16px;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .nav-link:hover {
-            color: white;
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-1px);
-        }
-        
-        .nav-link.active {
-            color: white;
-            background: linear-gradient(135deg, #ff0066 0%, #8755ff 100%);
-            box-shadow: 0 4px 12px rgba(255, 0, 102, 0.3);
-        }
-        
-        .nav-link::before {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(135deg, #ff0066 0%, #8755ff 100%);
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-        
-        .nav-link:hover::before {
-            width: 80%;
-        }
-        
-        .navbar-scroll-indicator {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 2px;
-            background: linear-gradient(135deg, #ff0066 0%, #8755ff 100%);
-            transition: width 0.3s ease;
-        }
-        
-        /* Adjust slide padding to account for navbar */
-        .slide { padding: 80px 60px 40px 60px; min-height: 100vh; page-break-after: always; }
-        
-        /* Hero Slide Styles */
-        .hero-slide { 
-            padding: 0; 
-            margin-top: 100px;
-            position: relative; 
-            background: linear-gradient(135deg, rgba(60,60,60,0.85) 0%, rgba(26,26,26,0.85) 50%, rgba(0,0,0,0.85) 100%), 
-                        url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: white; 
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        
-        .hero-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            opacity: 0.1;
-        }
-        
-        .hero-grid {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                linear-gradient(rgba(255,0,102,0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0,150,255,0.1) 1px, transparent 1px);
-            background-size: 60px 60px;
-            animation: gridMove 20s linear infinite;
-        }
-        
-        .hero-particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 20% 50%, rgba(255,0,102, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(135,85,255, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 40% 80%, rgba(0,150,255, 0.15) 0%, transparent 50%);
-            animation: particleFloat 15s ease-in-out infinite alternate;
-        }
-        
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(60px, 60px); }
-        }
-        
-        @keyframes particleFloat {
-            0% { transform: translateY(0) rotate(0deg); }
-            100% { transform: translateY(-20px) rotate(5deg); }
-        }
-        
-        .hero-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 60px;
-            z-index: 2;
-            position: relative;
-        }
-        
-        .hero-badge {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 40px;
-        }
-        
-        .award-badge {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            background: linear-gradient(135deg, rgba(255,0,102,0.2) 0%, rgba(135,85,255,0.2) 100%);
-            backdrop-filter: blur(20px);
-            padding: 15px 60px;
-            border: none;
-            box-shadow: 
-                0 8px 25px rgba(0,0,0,0.3),
-                inset 0 1px 0 rgba(255,255,255,0.2);
-            position: relative;
-            overflow: hidden;
-            width: 100%;
-            max-width: 100%;
-        }
-        
-        .award-badge::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            transition: left 0.6s;
-        }
-        
+    <link rel="stylesheet" href="styles.css">
 
-        
-        .award-icon {
-            font-size: 3rem;
-            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-        
-        @keyframes glow {
-            0% { 
-                filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3)) drop-shadow(0 0 12px rgba(255,0,102,0.3));
-                transform: scale(1);
-            }
-            100% { 
-                filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3)) drop-shadow(0 0 24px rgba(255,0,102,0.6));
-                transform: scale(1.02);
-            }
-        }
-        
-        .award-info {
-            text-align: center;
-        }
-        
-        .award-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: white;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-        }
-        
-        .award-category {
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: #cbd5e1;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .moldova-flag {
-            font-size: 2rem;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-            animation: wave 3s ease-in-out infinite;
-        }
-        
-        @keyframes wave {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(-5deg); }
-            75% { transform: rotate(5deg); }
-        }
-        
-        .hero-logo {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 40px;
-            filter: drop-shadow(0 4px 20px rgba(0,0,0,0.3));
-        }
-        
-        .hero-logo svg {
-            transition: transform 0.3s ease;
-        }
-        
-        .hero-logo:hover svg {
-            transform: scale(1.05);
-        }
-        
-        .hero-main {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        
-        .hero-title {
-            margin-bottom: 30px;
-        }
-        
-        .title-line {
-            display: block;
-            font-size: 4.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
-            margin-bottom: 10px;
-            line-height: 1;
-        }
-        
-        .title-subtitle {
-            display: block;
-            font-size: 1.8rem;
-            font-weight: 400;
-            color: #f0f0f0;
-            letter-spacing: 0.5px;
-        }
-        
-        .hero-description {
-            font-size: 1.3rem;
-            line-height: 1.6;
-            color: #f0f0f0;
-            max-width: 800px;
-            margin: 0 auto 40px auto;
-            text-align: center;
-        }
-        
-        .hero-value-props {
-            display: flex;
-            justify-content: center;
-            gap: 60px;
-            margin: 40px 0;
-            flex-wrap: wrap;
-        }
-        
-        .value-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            background: rgba(0,150,255,0.1);
-            padding: 15px 25px;
-            border-radius: 12px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0,150,255,0.3);
-            box-shadow: 
-                0 4px 16px rgba(0,150,255,0.1),
-                0 1px 4px rgba(0,0,0,0.1),
-                inset 0 1px 0 rgba(255,255,255,0.05);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-        }
-        
-        .value-item:hover {
-            transform: translateY(-1px) scale(1.02);
-            box-shadow: 
-                0 8px 24px rgba(0,150,255,0.2),
-                0 4px 12px rgba(0,0,0,0.15),
-                inset 0 1px 0 rgba(255,255,255,0.1);
-        }
-        
-        .value-item::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.05), transparent);
-            border-radius: 12px;
-            opacity: 0;
-            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .value-item:hover::after {
-            opacity: 1;
-        }
-        
-        .value-icon {
-            font-size: 1.5rem;
-        }
-        
-        .value-text {
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-        
-        .hero-stats-modern {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 40px;
-            margin: 50px 0;
-            max-width: 1000px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .stat-modern {
-            text-align: center;
-            background: rgba(51,204,204,0.05);
-            padding: 30px 20px;
-            border-radius: 16px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(51,204,204,0.2);
-            box-shadow: 
-                0 8px 32px rgba(51,204,204,0.1),
-                0 2px 8px rgba(0,0,0,0.1),
-                inset 0 1px 0 rgba(255,255,255,0.05);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .stat-modern::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #ff0066, #8755ff, #0096ff, #33cccc);
-            opacity: 0;
-            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .stat-modern:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 
-                0 16px 48px rgba(51,204,204,0.25),
-                0 8px 24px rgba(0,0,0,0.15),
-                inset 0 1px 0 rgba(255,255,255,0.1);
-        }
-        
-        .stat-modern:hover::before {
-            opacity: 1;
-        }
-        
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #ff0066 0%, #8755ff 50%, #0096ff 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-            line-height: 1;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .stat-modern:hover .stat-value {
-            transform: scale(1.05);
-        }
-        
-        .stat-desc {
-            font-size: 0.9rem;
-            color: #f0f0f0;
-            font-weight: 500;
-            line-height: 1.2;
-        }
-        
-        .hero-quote {
-            text-align: center;
-            font-size: 1.4rem;
-            font-style: italic;
-            color: #f0f0f0;
-            background: rgba(135,85,255,0.1);
-            padding: 30px 40px;
-            border-radius: 16px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(135,85,255,0.3);
-            box-shadow: 
-                0 8px 32px rgba(135,85,255,0.15),
-                0 2px 8px rgba(0,0,0,0.1),
-                inset 0 1px 0 rgba(255,255,255,0.05);
-            max-width: 700px;
-            margin: 0 auto;
-            position: relative;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .hero-quote:hover {
-            transform: translateY(-2px);
-            box-shadow: 
-                0 12px 40px rgba(135,85,255,0.25),
-                0 4px 16px rgba(0,0,0,0.15),
-                inset 0 1px 0 rgba(255,255,255,0.1);
-        }
-        
-        .hero-quote::before {
-            content: '"';
-            font-size: 4rem;
-            position: absolute;
-            top: -10px;
-            left: 20px;
-            opacity: 0.3;
-            font-family: serif;
-            color: #8755ff;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-        }
-        
-        .hero-footer {
-            background: #f8f9fa;
-            color: #333;
-            padding: 30px 0;
-            border-top: none;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-            z-index: 2;
-            position: relative;
-        }
-        
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 60px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 40px;
-            align-items: start;
-        }
-        
-        .footer-left {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        
-        .footer-brand-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 15px;
-        }
-        
-        .footer-logo-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .footer-logo svg {
-            width: 100px;
-            height: 30px;
-        }
-        
-        .footer-year {
-            font-size: 0.8rem;
-            color: #666;
-            font-weight: 500;
-        }
-        
-        .footer-metrics {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-        
-        .footer-metric {
-            text-align: center;
-        }
-        
-        .footer-metric-value {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: #ff0066;
-            line-height: 1;
-            margin-bottom: 2px;
-        }
-        
-        .footer-metric-label {
-            font-size: 0.7rem;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .footer-description {
-            font-size: 0.85rem;
-            color: #666;
-            line-height: 1.5;
-            max-width: 500px;
-        }
-        
-        .footer-awards-compact {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px 25px;
-            margin-top: 15px;
-        }
-        
-        .award-compact {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-        
-        .award-compact-title {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #ff0066;
-            line-height: 1.2;
-        }
-        
-        .award-compact-desc {
-            font-size: 0.7rem;
-            color: #888;
-            line-height: 1.2;
-        }
-        
-        .footer-right {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 15px;
-        }
-        
-        .footer-contact-compact {
-            text-align: right;
-        }
-        
-        .footer-section-title {
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .contact-compact {
-            font-size: 0.75rem;
-            color: #666;
-            line-height: 1.4;
-            margin-bottom: 5px;
-        }
-        
-        .contact-compact strong {
-            color: #333;
-            font-weight: 600;
-        }
-        
-        .footer-scroll {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.75rem;
-            color: #666;
-            background: #fff;
-            padding: 6px 12px;
-            border-radius: 15px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            margin-top: 10px;
-        }
-        
-        .footer-scroll:hover {
-            background: #ff0066;
-            color: white;
-            transform: translateY(-1px);
-        }
-        
-        .footer-scroll-arrow {
-            color: #ff0066;
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
-        
-        .footer-scroll:hover .footer-scroll-arrow {
-            color: white;
-            animation: bounce 1s infinite;
-        }
-        
-        .footer-bottom {
-            text-align: center;
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid #e0e0e0;
-            font-size: 0.7rem;
-            color: #888;
-        }
-        
-        .scroll-indicator {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            padding: 10px;
-            border-radius: 12px;
-            background: rgba(255,0,102,0.1);
-            border: 1px solid rgba(255,0,102,0.2);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .scroll-indicator:hover {
-            background: rgba(255,0,102,0.15);
-            border: 1px solid rgba(255,0,102,0.4);
-            transform: translateY(-1px);
-        }
-        
-        .scroll-text {
-            font-size: 0.8rem;
-            color: #f0f0f0;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-weight: 500;
-        }
-        
-        .scroll-arrow {
-            font-size: 1.2rem;
-            color: #ff0066;
-            animation: bounce 2s infinite;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-        }
-        
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
-        }
-        
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        /* Enhanced Material Design shadows */
-        .elevation-1 { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08); }
-        .elevation-2 { box-shadow: 0 3px 6px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.12); }
-        .elevation-3 { box-shadow: 0 10px 20px rgba(0,0,0,0.15), 0 3px 6px rgba(0,0,0,0.10); }
-        .elevation-4 { box-shadow: 0 15px 25px rgba(0,0,0,0.15), 0 5px 10px rgba(0,0,0,0.05); }
-        .elevation-5 { box-shadow: 0 20px 40px rgba(0,0,0,0.15), 0 5px 10px rgba(0,0,0,0.05); }
-        
-        .slide-header { display: flex; align-items: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 3px solid #f1f5f9; }
-        .slide-number { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); color: white; width: 60px; height: 60px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 700; margin-right: 30px; font-size: 24px; }
-        h1 { color: #1e293b; font-size: 2.8rem; font-weight: 700; line-height: 1.1; margin-bottom: 10px; }
-        h2 { color: #334155; font-size: 1.6rem; font-weight: 600; margin-bottom: 20px; }
-        h3 { color: #1e293b; font-size: 1.3rem; font-weight: 600; margin: 25px 0 15px 0; }
-        .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin: 25px 0; }
-        .stat-card { background: linear-gradient(135deg, #1e293b 0%, #475569 100%); color: white; padding: 25px 20px; border-radius: 12px; text-align: center; }
-        .stat-number { font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
-        .stat-label { font-size: 0.9rem; opacity: 0.9; font-weight: 500; }
-        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 25px 0; }
-        .feature-card { 
-            background: #fff; 
-            padding: 25px; 
-            border-radius: 12px; 
-            border: 2px solid #e2e8f0; 
-            box-shadow: 
-                0 4px 16px rgba(0,0,0,0.08),
-                0 1px 4px rgba(0,0,0,0.04);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #ff0066, #8755ff, #0096ff);
-            transform: scaleX(0);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-4px) scale(1.01);
-            box-shadow: 
-                0 12px 32px rgba(0,0,0,0.15),
-                0 4px 16px rgba(0,0,0,0.08);
-            border-color: rgba(255,0,102,0.2);
-        }
-        
-        .feature-card:hover::before {
-            transform: scaleX(1);
-        }
-        
-        .feature-icon { font-size: 2.2rem; margin-bottom: 15px; }
-        .feature-title { font-size: 1.1rem; font-weight: 600; color: #1e293b; margin-bottom: 12px; }
-        .feature-description { color: #64748b; font-size: 0.9rem; line-height: 1.4; }
-        .innovation-points { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 25px 0; }
-        .innovation-card { background: #f8fafc; padding: 25px; border-radius: 12px; border: 2px solid #e2e8f0; border-left: 4px solid #1e293b; }
-        .innovation-title { font-weight: 600; color: #1e293b; margin-bottom: 10px; font-size: 1.05rem; }
-        .innovation-description { color: #475569; line-height: 1.4; font-size: 0.9rem; }
-        .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin: 25px 0; }
-        .metric-item { background: #f1f5f9; padding: 25px 20px; border-radius: 12px; text-align: center; border: 2px solid #e2e8f0; }
-        .metric-value { font-size: 1.6rem; font-weight: 700; color: #1e293b; margin-bottom: 8px; }
-        .metric-label { font-size: 0.9rem; color: #64748b; font-weight: 500; }
-        .strategic-quote { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); color: white; padding: 30px; border-radius: 12px; margin: 25px 0; font-size: 1.05rem; font-style: italic; line-height: 1.5; }
-        .quote-attribution { text-align: right; margin-top: 15px; font-size: 0.9rem; opacity: 0.8; font-style: normal; }
-        .evolution-timeline { background: #fff; border: 2px solid #e2e8f0; border-radius: 12px; padding: 25px; margin: 25px 0; }
-        .timeline-item { margin: 15px 0; padding: 12px 0 12px 20px; border-left: 3px solid #cbd5e1; position: relative; }
-        .timeline-item::before { content: ''; width: 10px; height: 10px; background: #1e293b; border-radius: 50%; position: absolute; left: -6.5px; top: 18px; }
-        .timeline-year { font-weight: 700; font-size: 1.05rem; color: #1e293b; margin-bottom: 5px; }
-        .timeline-description { color: #64748b; font-size: 0.9rem; line-height: 1.4; }
-        .moldova-badge { background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%); color: white; padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; font-weight: 600; display: inline-block; margin: 10px 10px 10px 0; }
-        .startup-highlight { background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); border: 2px solid #cbd5e1; color: #1e293b; padding: 30px; border-radius: 12px; margin: 25px 0; text-align: center; }
-        .brand-header { text-align: center; margin-bottom: 30px; }
-        .brand-tagline { font-size: 1.1rem; color: #64748b; font-weight: 500; margin-bottom: 15px; }
-        .value-props { display: flex; justify-content: center; gap: 30px; margin: 20px 0; flex-wrap: wrap; }
-        .value-prop { color: #1e293b; font-weight: 600; font-size: 1.1rem; }
-        .section-divider { height: 2px; background: linear-gradient(90deg, transparent 0%, #cbd5e1 50%, transparent 100%); margin: 25px 0; }
-        .cta-section { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); color: white; padding: 35px; border-radius: 12px; text-align: center; margin-top: 25px; }
-        .contact-info { background: rgba(255,255,255,0.1); padding: 25px; border-radius: 12px; margin-top: 25px; border: 1px solid rgba(255,255,255,0.2); }
-        .problem-highlight { background: #fef2f2; border: 2px solid #fecaca; border-left: 4px solid #dc2626; padding: 25px; border-radius: 12px; margin: 20px 0; }
-        .solution-highlight { background: #f0fdf4; border: 2px solid #bbf7d0; border-left: 4px solid #16a34a; padding: 25px; border-radius: 12px; margin: 20px 0; }
-        @media print { .slide { page-break-after: always; } }
-        @media (max-width: 1024px) { 
-            .slide { padding: 30px 40px; } 
-            h1 { font-size: 2.4rem; } 
-            .features-grid, .innovation-points, .metrics-grid { grid-template-columns: 1fr; } 
-            .hero-stats { grid-template-columns: repeat(2, 1fr); }
-            
-            /* Hero responsive */
-            .hero-content { padding: 40px 30px; }
-            .hero-logo svg { width: 240px; height: 72px; }
-            .title-line { font-size: 3.5rem; }
-            .title-subtitle { font-size: 1.4rem; }
-            .hero-description { font-size: 1.1rem; }
-            .hero-stats-modern { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-            .hero-value-props { gap: 30px; }
-            .footer-container { padding: 0 30px; }
-            .footer-content { 
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-            .footer-brand-row { 
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                gap: 15px;
-            }
-            .footer-right { 
-                align-items: center;
-            }
-            .footer-contact-compact { 
-                text-align: center;
-            }
-            .footer-awards-compact { 
-                grid-template-columns: 1fr;
-                gap: 10px;
-                text-align: center;
-            }
-        }
-        @media (max-width: 768px) { 
-            .slide { padding: 25px 20px; } 
-            h1 { font-size: 2rem; } 
-            .hero-stats { grid-template-columns: 1fr; } 
-            .slide-header { flex-direction: column; text-align: center; } 
-            .slide-number { margin: 0 0 20px 0; }
-            
-            /* Hero mobile */
-            .hero-content { padding: 30px 20px; }
-            .hero-logo svg { width: 200px; height: 60px; }
-            .title-line { font-size: 2.8rem; }
-            .title-subtitle { font-size: 1.2rem; }
-            .hero-description { font-size: 1rem; }
-            .hero-stats-modern { grid-template-columns: 1fr; gap: 15px; }
-            .hero-value-props { flex-direction: column; align-items: center; gap: 15px; }
-            .footer-container { padding: 0 20px; }
-            .footer-top { 
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-            .footer-metrics { 
-                justify-content: center;
-                gap: 15px;
-            }
-            .footer-bottom { 
-                flex-direction: column;
-                gap: 10px;
-                text-align: center;
-            }
-            .hero-badge { margin-bottom: 30px; }
-            .award-badge { padding: 15px 30px; gap: 15px; }
-            .award-icon, .moldova-flag { font-size: 1.5rem; }
-            .award-title { font-size: 1rem; }
-            .award-category { font-size: 0.8rem; }
-        }
-    </style>
 </head>
+
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="navbar-scroll-indicator"></div>
         <div class="navbar-container">
             <a href="#hero" class="navbar-logo">
-                <svg xmlns="http://www.w3.org/2000/svg" width="280" height="84" viewBox="0 0 300 60">
-                    <defs>
-                        <linearGradient id="logoTextGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color: rgb(255, 255, 255);"></stop>
-                            <stop offset="100%" style="stop-color: rgb(226, 232, 240);"></stop>
-                        </linearGradient>
-                    </defs>
-                    <g transform="translate(10, 15) scale(1.2)">
-                        <path d="M0,23.1l8-4.6L0,13.8l8-4.6L0,4.6L8,0l24,13.8L8,27.7L0,23.1z" fill="#ffffff"></path>
-                        <path d="M22.5,17.6L22.5,17.6l-10.4-6l0,0L8,9.2l16,18.5V18.5L22.5,17.6z" fill="#FF0066"></path>
-                    </g>
-                    <text x="70" y="38" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="url(#logoTextGradient)" dominant-baseline="middle">Adt Infra Hub</text>
-                </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="280" height="84" viewBox="0 0 300 60">
+                        <defs>
+                            <linearGradient id="logoTextGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color: rgb(255, 255, 255);"></stop>
+                                <stop offset="100%" style="stop-color: rgb(226, 232, 240);"></stop>
+                            </linearGradient>
+                        </defs>
+                        <g transform="translate(10, 15) scale(1.2)">
+                            <path d="M0,23.1l8-4.6L0,13.8l8-4.6L0,4.6L8,0l24,13.8L8,27.7L0,23.1z" fill="#ffffff"></path>
+                            <path d="M22.5,17.6L22.5,17.6l-10.4-6l0,0L8,9.2l16,18.5V18.5L22.5,17.6z" fill="#FF0066"></path>
+                        </g>
+                    <text x="70" y="38" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+                        fill="url(#logoTextGradient)" dominant-baseline="middle">Adt Infra Hub</text>
+                    </svg>
             </a>
             <div class="navbar-nav">
                 <a href="#hero" class="nav-link active">Home</a>
                 <a href="#problem" class="nav-link">Problem</a>
                 <a href="#features" class="nav-link">Features</a>
                 <a href="#moldova" class="nav-link">Moldova</a>
-                <a href="#market" class="nav-link">Market</a>
-                <a href="#awards" class="nav-link">Awards</a>
-            </div>
+                <a href="#business" class="nav-link">Business</a>
+                <a href="#roadmap" class="nav-link">Roadmap</a>
+                <a href="#financial" class="nav-link">Financial</a>
+                <a href="#risk" class="nav-link">Risk</a>
+                <a href="#social" class="nav-link">Social</a>
+                </div>
+            <button class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
 
     <!-- Award Badge - Immediately after navbar -->
-    <div class="hero-badge" style="position: fixed; top: 85px; left: 0; right: 0; z-index: 999; padding: 0;">
-        <div style="background: linear-gradient(90deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%); border-top: 3px solid #ffd700; border-bottom: 3px solid #ffd700; padding: 24px 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); width: 100%;">
-            <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 0;">
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <div style="font-size: 2rem; filter: drop-shadow(0 2px 8px rgba(255,215,0,0.6));">🏆</div>
-                    <div style="text-align: center;">
-                        <div style="font-size: 1.1rem; font-weight: 800; color: #ffd700; text-shadow: 0 2px 4px rgba(0,0,0,0.8); letter-spacing: 1px;">MITP AWARDS 2025</div>
-                        <div style="font-size: 0.8rem; font-weight: 600; color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.8); margin-top: 2px;">🏆 BEST STARTUP CATEGORY 🏆</div>
+    <div class="hero-badge">
+        <div class="award-badge-container">
+            <div class="award-badge-content">
+                <div class="award-section-left">
+                    <div class="award-icon">🏆</div>
+                    <div class="award-info">
+                        <div class="award-title">MITP AWARDS 2025 🏆 BEST STARTUP CATEGORY 🏆</div>
                     </div>
                 </div>
-                <div style="width: 2px; height: 30px; background: linear-gradient(to bottom, transparent, #ffd700, transparent);"></div>
-                <div style="display: flex; align-items: center; gap: 15px;">
-                    <div style="text-align: center;">
-                        <div style="font-size: 1rem; font-weight: 700; color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.8);">Ads Intelligence Media S.R.L.</div>
-                        <div style="font-size: 0.75rem; color: #cccccc; margin-top: 2px;">Moldova Innovation</div>
+                <div class="award-separator"></div>
+                <div class="award-section-right">
+                    <div class="company-info">
+                        <div class="company-name">Ads Intelligence Media S.R.L. Moldova Innovation</div>
                     </div>
-                    <div style="font-size: 2rem; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));">🇲🇩</div>
+                    <div class="moldova-flag">🇲🇩</div>
                 </div>
             </div>
         </div>
@@ -941,9 +76,9 @@
             <div class="hero-particles"></div>
             <div class="hero-grid"></div>
         </div>
-        
+
         <div class="hero-content">
-            
+
             <div class="hero-main">
                 <h1 class="hero-title">
                     <span class="title-subtitle">Infrastructure Evolution. Moldova Innovation.</span>
@@ -951,7 +86,8 @@
                 
                 <p class="hero-description">
                     From 15+ years of enterprise infrastructure challenges to world-class Moldova-developed solution. 
-                    <strong>Born from authentic experience. Built by 100% Moldova team. Ready for global impact.</strong>
+                    <strong>Born from authentic experience. Built by 100% Moldova team. Ready for global
+                        impact.</strong>
                 </p>
                 
                 <div class="hero-value-props">
@@ -1004,41 +140,114 @@
             <h2>The Global Infrastructure Challenge</h2>
         </div>
 
-        <div class="problem-highlight">
-            <h3 style="color: #dc2626; margin-bottom: 15px;">The Universal Problem</h3>
-            <p>Every growing tech company faces the same evolution: What starts as simple server management becomes enterprise-scale infrastructure complexity. Current solutions are either too simple for enterprise needs or too complex for operational efficiency.</p>
+        <div class="problem-modern">
+            <div class="problem-hero">
+                <div class="problem-badge">
+                    <span class="problem-badge-icon">⚠️</span>
+                    <span class="problem-badge-text">Global Challenge</span>
+                </div>
+                <h3 class="problem-title">The Universal Problem</h3>
+                <p class="problem-subtitle">Every growing tech company faces the same evolution: What starts as simple server management becomes enterprise-scale infrastructure complexity. Current solutions are either too simple for enterprise needs or too complex for operational efficiency.</p>
+            </div>
+            
+            <div class="problem-stats">
+                <div class="problem-stat">
+                    <div class="problem-stat-icon">🌍</div>
+                    <div class="problem-stat-value">$15B+</div>
+                    <div class="problem-stat-label">Global Infrastructure Market</div>
+                </div>
+                <div class="problem-stat">
+                    <div class="problem-stat-icon">🎯</div>
+                    <div class="problem-stat-value">100%</div>
+                    <div class="problem-stat-label">Problem Universality</div>
+                </div>
+                <div class="problem-stat">
+                    <div class="problem-stat-icon">📈</div>
+                    <div class="problem-stat-value">40%</div>
+                    <div class="problem-stat-label">Management Overhead</div>
+                </div>
+                <div class="problem-stat">
+                    <div class="problem-stat-icon">💰</div>
+                    <div class="problem-stat-value">25%</div>
+                    <div class="problem-stat-label">Potential Cost Savings</div>
+                </div>
+            </div>
         </div>
 
-        <div class="metrics-grid">
-            <div class="metric-item"><div class="metric-value">$15B+</div><div class="metric-label">Global Infrastructure Market</div></div>
-            <div class="metric-item"><div class="metric-value">100%</div><div class="metric-label">Problem Universality</div></div>
-            <div class="metric-item"><div class="metric-value">40%</div><div class="metric-label">Management Overhead</div></div>
-            <div class="metric-item"><div class="metric-value">25%</div><div class="metric-label">Potential Cost Savings</div></div>
-        </div>
 
-        <h3>Adtelligent's Real Enterprise Pain Points</h3>
+
+        <h3 class="section-header-pain-points">Adtelligent's Real Enterprise Pain Points</h3>
         <div class="innovation-points">
             <div class="innovation-card">
                 <div class="innovation-title">15+ Years of Accumulated Complexity</div>
-                <div class="innovation-description">Growth from startup to "dozens of teams, hundreds of servers, billions of requests" created layers of infrastructure complexity that existing tools can't handle unified.</div>
+                <div class="innovation-description">Growth from startup to "dozens of teams, hundreds of servers,
+                    billions of requests" created layers of infrastructure complexity that existing tools can't handle
+                    unified.</div>
             </div>
             <div class="innovation-card">
                 <div class="innovation-title">Multi-Jurisdiction Operations</div>
-                <div class="innovation-description">Managing infrastructure across US, EU, Ukraine, and Moldova jurisdictions with different compliance requirements, teams (NOC L1-L4), and providers requires sophisticated orchestration.</div>
+                <div class="innovation-description">Managing infrastructure across US, EU, Ukraine, and Moldova
+                    jurisdictions with different compliance requirements, teams (NOC L1-L4), and providers requires
+                    sophisticated orchestration.</div>
             </div>
             <div class="innovation-card">
                 <div class="innovation-title">Technology Evolution Overhead</div>
-                <div class="innovation-description">Continuous technology transitions (NodeJS→Go, MongoDB→ClickHouse, PM2→systemd) across 1000+ servers demand intelligent automation and visibility platforms.</div>
+                <div class="innovation-description">Continuous technology transitions (NodeJS→Go, MongoDB→ClickHouse,
+                    PM2→systemd) across 1000+ servers demand intelligent automation and visibility platforms.</div>
             </div>
             <div class="innovation-card">
                 <div class="innovation-title">Enterprise Scale Requirements</div>
-                <div class="innovation-description">Supporting 100+ technical engineers and 15+ DevOps specialists across multiple time zones requires enterprise-grade infrastructure management capabilities.</div>
+                <div class="innovation-description">Supporting 100+ technical engineers and 15+ DevOps specialists
+                    across multiple time zones requires enterprise-grade infrastructure management capabilities.</div>
             </div>
         </div>
 
+        <div class="solution-modern">
+            <div class="solution-hero">
+                <div class="solution-badge">
+                    <span class="solution-badge-icon">🚀</span>
+                    <span class="solution-badge-text">Born from Experience</span>
+                </div>
+                <h3 class="solution-title">Our Solution</h3>
+                <p class="solution-subtitle">Adt Infra Hub isn't theoretical - it's the materialization of Adtelligent's strategic vision, developed entirely by our 100% Moldova-based team since the Moldova office establishment in 2023.</p>
+        </div>
+
         <div class="solution-highlight">
-            <h3 style="color: #16a34a; margin-bottom: 15px;">Our Solution: Born from Experience</h3>
-            <p>Adt Infra Hub isn't theoretical - it's the materialization of Adtelligent's strategic vision, developed entirely by our 100% Moldova-based team since the Moldova office establishment in 2023. We didn't guess what enterprises need; we lived the 15+ year evolution from Ukrainian startup to global enterprise infrastructure management, and solved it with Moldovan innovation.</p>
+                <div class="solution-highlight-content">
+                    <div class="solution-highlight-icon">💡</div>
+                    <p class="solution-highlight-text">We didn't guess what enterprises need; we lived the 15+ year evolution from Ukrainian startup to global enterprise infrastructure management, and solved it with Moldovan innovation.</p>
+                </div>
+            </div>
+            
+            <div class="solution-metrics">
+                <div class="solution-metric">
+                    <div class="solution-metric-circle">
+                        <div class="solution-metric-icon">🎯</div>
+                    </div>
+                    <div class="solution-metric-content">
+                        <div class="solution-metric-value">15+</div>
+                        <div class="solution-metric-label">Years Experience</div>
+                    </div>
+                </div>
+                <div class="solution-metric">
+                    <div class="solution-metric-circle">
+                        <div class="solution-metric-icon">🏢</div>
+                    </div>
+                    <div class="solution-metric-content">
+                        <div class="solution-metric-value">100%</div>
+                        <div class="solution-metric-label">Moldova Team</div>
+                    </div>
+                </div>
+                <div class="solution-metric">
+                    <div class="solution-metric-circle">
+                        <div class="solution-metric-icon">⚡</div>
+                    </div>
+                    <div class="solution-metric-content">
+                        <div class="solution-metric-value">2023</div>
+                        <div class="solution-metric-label">Office Established</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1049,203 +258,219 @@
             <h2>Revolutionary Features: Beyond Traditional Infrastructure Management</h2>
         </div>
 
-        <h3 style="color: #ff0066; margin-bottom: 20px; text-align: center; font-size: 1.4rem;">🎯 Proprietary Moldova-Developed Core Technologies</h3>
-        
+        <h3 class="section-header-proprietary">🎯 Proprietary Moldova-Developed Core Technologies</h3>
+
         <div class="features-grid">
-            <div class="feature-card" style="border-left: 4px solid #ff0066; background: linear-gradient(135deg, #fff 0%, #fef7ff 100%);">
+            <div class="feature-card feature-card-proprietary">
                 <div class="feature-icon">💰</div>
                 <div class="feature-title">Enterprise Cost Optimization</div>
-                <div class="feature-description">Advanced billing integration across multiple providers (Hetzner, AWS, bare-metal) with predictive cost modeling and automated optimization recommendations.</div>
-                
-                <div style="margin-top: 20px; padding: 20px; background: linear-gradient(135deg, #ff0066 0%, #ff4d94 100%); border-radius: 12px; color: white; position: relative; overflow: hidden;">
-                    <div style="position: absolute; top: -10px; right: -10px; font-size: 3rem; opacity: 0.1;">📈</div>
-                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
-                        <div style="font-size: 1.1rem; font-weight: 600;">Proven Cost Savings</div>
-                        <div style="font-size: 2rem;">🎯</div>
-                    </div>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center;">
+                <div class="feature-description">Advanced billing integration across multiple providers (Hetzner, AWS,
+                    bare-metal) with predictive cost modeling, automated optimization recommendations, and real-time expense tracking.</div>
+
+                <div class="infographic-card infographic-card-cost">
+                    <div class="infographic-card-bg-icon">📈</div>
+                    <div class="infographic-card-header">
+                        <div class="infographic-card-title">Proven Cost Savings</div>
+                        <div class="infographic-card-icon">🎯</div>
+            </div>
+
+                    <div class="infographic-card-content">
                         <div>
-                            <div style="font-size: 2.5rem; font-weight: 900; margin-bottom: 5px; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">$10,000</div>
-                            <div style="font-size: 0.9rem; opacity: 0.9;">Monthly Cost Reduction</div>
+                            <div class="infographic-card-value">$10,000</div>
+                            <div class="infographic-card-label">Monthly Cost Reduction</div>
                         </div>
-                        <div style="text-align: center;">
-                            <div style="width: 80px; height: 80px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; margin: 0 auto 10px;">
-                                <div style="font-size: 2rem;">📉</div>
+                        <div class="infographic-card-visual">
+                            <div class="infographic-card-circle">
+                                <div class="infographic-card-circle-icon">📉</div>
                             </div>
-                            <div style="font-size: 0.8rem; opacity: 0.8;">After Implementation</div>
+                            <div class="infographic-card-circle-label">After Implementation</div>
                         </div>
                     </div>
-                    
-                    <div style="margin-top: 15px; padding: 12px; background: rgba(255,255,255,0.1); border-radius: 8px; border-left: 4px solid rgba(255,255,255,0.3);">
-                        <div style="display: flex; align-items: center; gap: 10px;">
-                            <div style="font-size: 1.2rem;">✅</div>
-                            <div style="font-size: 0.9rem; font-weight: 500;">Adtelligent achieved significant cost optimization through intelligent infrastructure management</div>
+
+                    <div class="infographic-card-footer">
+                        <div class="infographic-card-footer-content">
+                            <div class="infographic-card-check">✅</div>
+                            <div class="infographic-card-text">Adtelligent achieved significant cost optimization
+                                through intelligent infrastructure management</div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="feature-card" style="border-left: 4px solid #8755ff; background: linear-gradient(135deg, #fff 0%, #f8f7ff 100%);">
+            <div class="feature-card feature-card-multitenant">
                 <div class="feature-icon">🏢</div>
                 <div class="feature-title">Multitenant Servers Management</div>
-                <div class="feature-description">Advanced multitenant infrastructure management platform serving 10+ enterprise clients. Secure isolation, resource allocation, and unified management across client environments.</div>
-                
-                <div style="margin-top: 20px; padding: 20px; background: linear-gradient(135deg, #8755ff 0%, #a855f7 100%); border-radius: 12px; color: white; position: relative; overflow: hidden;">
-                    <div style="position: absolute; top: -10px; right: -10px; font-size: 3rem; opacity: 0.1;">🏢</div>
-                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
-                        <div style="font-size: 1.1rem; font-weight: 600;">Multi-Client Platform</div>
-                        <div style="font-size: 2rem;">🏢</div>
+                <div class="feature-description">Advanced multitenant infrastructure management platform serving 10+
+                    enterprise clients. Secure isolation, resource allocation, unified management across environments, and automated scaling capabilities.</div>
+
+                <div class="infographic-card infographic-card-multitenant">
+                    <div class="infographic-card-bg-icon">🏢</div>
+                    <div class="infographic-card-header">
+                        <div class="infographic-card-title">Multi-Client Platform</div>
+                        <div class="infographic-card-icon">🏢</div>
                     </div>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center;">
+
+                    <div class="infographic-card-content">
                         <div>
-                            <div style="font-size: 2.5rem; font-weight: 900; margin-bottom: 5px; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">10+</div>
-                            <div style="font-size: 0.9rem; opacity: 0.9;">Enterprise Clients</div>
+                            <div class="infographic-card-value">10+</div>
+                            <div class="infographic-card-label">Enterprise Clients</div>
                         </div>
-                        <div style="text-align: center;">
-                            <div style="width: 80px; height: 80px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; margin: 0 auto 10px;">
-                                <div style="font-size: 2rem;">🔒</div>
+                        <div class="infographic-card-visual">
+                            <div class="infographic-card-circle">
+                                <div class="infographic-card-circle-icon">🔒</div>
                             </div>
-                            <div style="font-size: 0.8rem; opacity: 0.8;">Secure Isolation</div>
+                            <div class="infographic-card-circle-label">Secure Isolation</div>
                         </div>
                     </div>
-                    
-                    <div style="margin-top: 15px; padding: 12px; background: rgba(255,255,255,0.1); border-radius: 8px; border-left: 4px solid rgba(255,255,255,0.3);">
-                        <div style="display: flex; align-items: center; gap: 10px;">
-                            <div style="font-size: 1.2rem;">✅</div>
-                            <div style="font-size: 0.9rem; font-weight: 500;">Secure isolation and unified management across multiple client environments</div>
+
+                    <div class="infographic-card-footer">
+                        <div class="infographic-card-footer-content">
+                            <div class="infographic-card-check">✅</div>
+                            <div class="infographic-card-text">Secure isolation and unified management across multiple
+                                client environments</div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="feature-card" style="border-left: 4px solid #0096ff; background: linear-gradient(135deg, #fff 0%, #f0f9ff 100%);">
+            <div class="feature-card feature-card-monitoring">
                 <div class="feature-icon">🤖</div>
                 <div class="feature-title">Own Developed Monitoring Agent</div>
-                <div class="feature-description">Proprietary lightweight agent deployed across servers providing monitoring: process tracking, security status, resource utilization, and automated classification with zero performance impact.</div>
-                
-                <div style="margin-top: 20px; padding: 20px; background: linear-gradient(135deg, #0096ff 0%, #3b82f6 100%); border-radius: 12px; color: white; position: relative; overflow: hidden;">
-                    <div style="position: absolute; top: -10px; right: -10px; font-size: 3rem; opacity: 0.1;">🔍</div>
-                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
-                        <div style="font-size: 1.1rem; font-weight: 600;">Intelligent Monitoring</div>
-                        <div style="font-size: 2rem;">🤖</div>
-                    </div>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center;">
+                <div class="feature-description">Proprietary lightweight agent deployed across servers providing
+                    monitoring: process tracking, security status, resource utilization, and automated classification
+                    with zero performance impact.</div>
+
+                <div class="infographic-card infographic-card-monitoring">
+                    <div class="infographic-card-bg-icon">🔍</div>
+                    <div class="infographic-card-header">
+                        <div class="infographic-card-title">Intelligent Monitoring</div>
+                        <div class="infographic-card-icon">🤖</div>
+            </div>
+
+                    <div class="infographic-card-content">
                         <div>
-                            <div style="font-size: 2.5rem; font-weight: 900; margin-bottom: 5px; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">100%</div>
-                            <div style="font-size: 0.9rem; opacity: 0.9;">Server Coverage</div>
-                        </div>
-                        <div style="text-align: center;">
-                            <div style="width: 80px; height: 80px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; margin: 0 auto 10px;">
-                                <div style="font-size: 2rem;">⚡</div>
-                            </div>
-                            <div style="font-size: 0.8rem; opacity: 0.8;">Zero Performance Impact</div>
-                        </div>
-                    </div>
-                    
-                    <div style="margin-top: 15px; padding: 12px; background: rgba(255,255,255,0.1); border-radius: 8px; border-left: 4px solid rgba(255,255,255,0.3);">
-                        <div style="display: flex; align-items: center; gap: 10px;">
-                            <div style="font-size: 1.2rem;">✅</div>
-                            <div style="font-size: 0.9rem; font-weight: 500;">Comprehensive monitoring with automated purpose classification</div>
+                            <div class="infographic-card-value">100%</div>
+                            <div class="infographic-card-label">Server Coverage</div>
+            </div>
+                        <div class="infographic-card-visual">
+                            <div class="infographic-card-circle">
+                                <div class="infographic-card-circle-icon">⚡</div>
+            </div>
+                            <div class="infographic-card-circle-label">Zero Performance Impact</div>
+            </div>
+            </div>
+
+                    <div class="infographic-card-footer">
+                        <div class="infographic-card-footer-content">
+                            <div class="infographic-card-check">✅</div>
+                            <div class="infographic-card-text">Comprehensive monitoring with automated purpose
+                                classification</div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="feature-card" style="border-left: 4px solid #10b981; background: linear-gradient(135deg, #fff 0%, #f0fdf4 100%);">
+            <div class="feature-card feature-card-automation">
                 <div class="feature-icon">🚨</div>
                 <div class="feature-title">Incidents Automation for NOC Team</div>
-                <div class="feature-description">Advanced incident automation system with web UI interface for NOC teams. Automated incident detection, response workflows, and resolution tracking with customizable escalation rules.</div>
-                
-                <div style="margin-top: 20px; padding: 20px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 12px; color: white; position: relative; overflow: hidden;">
-                    <div style="position: absolute; top: -10px; right: -10px; font-size: 3rem; opacity: 0.1;">⚡</div>
-                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
-                        <div style="font-size: 1.1rem; font-weight: 600;">Automated Response</div>
-                        <div style="font-size: 2rem;">🚨</div>
+                <div class="feature-description">Advanced incident automation system with web UI interface for NOC
+                    teams. Automated incident detection, response workflows, and resolution tracking with customizable
+                    escalation rules.</div>
+
+                <div class="infographic-card infographic-card-automation">
+                    <div class="infographic-card-bg-icon">⚡</div>
+                    <div class="infographic-card-header">
+                        <div class="infographic-card-title">Automated Response</div>
+                        <div class="infographic-card-icon">🚨</div>
                     </div>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center;">
+
+                    <div class="infographic-card-content">
                         <div>
-                            <div style="font-size: 2.5rem; font-weight: 900; margin-bottom: 5px; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">24/7</div>
-                            <div style="font-size: 0.9rem; opacity: 0.9;">Automated Monitoring</div>
+                            <div class="infographic-card-value">24/7</div>
+                            <div class="infographic-card-label">Automated Monitoring</div>
                         </div>
-                        <div style="text-align: center;">
-                            <div style="width: 80px; height: 80px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; margin: 0 auto 10px;">
-                                <div style="font-size: 2rem;">🖥️</div>
+                        <div class="infographic-card-visual">
+                            <div class="infographic-card-circle">
+                                <div class="infographic-card-circle-icon">🖥️</div>
                             </div>
-                            <div style="font-size: 0.8rem; opacity: 0.8;">Web UI</div>
+                            <div class="infographic-card-circle-label">Web UI</div>
                         </div>
                     </div>
-                    
-                    <div style="margin-top: 15px; padding: 12px; background: rgba(255,255,255,0.1); border-radius: 8px; border-left: 4px solid rgba(255,255,255,0.3);">
-                        <div style="display: flex; align-items: center; gap: 10px;">
-                            <div style="font-size: 1.2rem;">✅</div>
-                            <div style="font-size: 0.9rem; font-weight: 500;">Customizable escalation rules and response workflows</div>
+
+                    <div class="infographic-card-footer">
+                        <div class="infographic-card-footer-content">
+                            <div class="infographic-card-check">✅</div>
+                            <div class="infographic-card-text">Customizable escalation rules and response workflows
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="feature-card" style="border-left: 4px solid #f59e0b; background: linear-gradient(135deg, #fff 0%, #fffbeb 100%);">
+            <div class="feature-card feature-card-integration">
                 <div class="feature-icon">☁️</div>
-                <div class="feature-title">Multi-Platform Infrastructure Integration</div>
-                <div class="feature-description">Unified management of Kubernetes clusters, AWS cloud services, and bare metal servers in single infrastructure. Seamless orchestration across different deployment models.</div>
-                
-                <div style="margin-top: 20px; padding: 20px; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); border-radius: 12px; color: white; position: relative; overflow: hidden;">
-                    <div style="position: absolute; top: -10px; right: -10px; font-size: 3rem; opacity: 0.1;">🔗</div>
-                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
-                        <div style="font-size: 1.1rem; font-weight: 600;">Unified Management</div>
-                        <div style="font-size: 2rem;">☁️</div>
+                <div class="feature-title">Multi-Platform Integration</div>
+                <div class="feature-description">Unified management of Kubernetes clusters, AWS cloud services, and bare
+                    metal servers in single infrastructure platform. Seamless orchestration across deployment models with enterprise reliability.
+                </div>
+
+                <div class="infographic-card infographic-card-integration">
+                    <div class="infographic-card-bg-icon">🔗</div>
+                    <div class="infographic-card-header">
+                        <div class="infographic-card-title">Unified Management</div>
+                        <div class="infographic-card-icon">☁️</div>
                     </div>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center;">
+
+                    <div class="infographic-card-content">
                         <div>
-                            <div style="font-size: 2.5rem; font-weight: 900; margin-bottom: 5px; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">4</div>
-                            <div style="font-size: 0.9rem; opacity: 0.9;">Platform Types</div>
+                            <div class="infographic-card-value">4</div>
+                            <div class="infographic-card-label">Platform Types</div>
                         </div>
-                        <div style="text-align: center;">
-                            <div style="width: 80px; height: 80px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; margin: 0 auto 10px;">
-                                <div style="font-size: 2rem;">🔗</div>
+                        <div class="infographic-card-visual">
+                            <div class="infographic-card-circle">
+                                <div class="infographic-card-circle-icon">🔗</div>
                             </div>
-                            <div style="font-size: 0.8rem; opacity: 0.8;">Integrated</div>
+                            <div class="infographic-card-circle-label">Integrated</div>
                         </div>
                     </div>
-                    
-                    <div style="margin-top: 15px; padding: 12px; background: rgba(255,255,255,0.1); border-radius: 8px; border-left: 4px solid rgba(255,255,255,0.3);">
-                        <div style="display: flex; align-items: center; gap: 10px;">
-                            <div style="font-size: 1.2rem;">✅</div>
-                            <div style="font-size: 0.9rem; font-weight: 500;">k8s, AWS, bare metal and cloud servers in single infrastructure</div>
+
+                    <div class="infographic-card-footer">
+                        <div class="infographic-card-footer-content">
+                            <div class="infographic-card-check">✅</div>
+                            <div class="infographic-card-text">k8s, AWS, bare metal and cloud servers in single
+                                infrastructure</div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="feature-card" style="border-left: 4px solid #8b5cf6; background: linear-gradient(135deg, #fff 0%, #faf5ff 100%);">
+            <div class="feature-card feature-card-rbac">
                 <div class="feature-icon">🔐</div>
                 <div class="feature-title">Role-Based Access Control (RBAC)</div>
-                <div class="feature-description">Advanced RBAC system with granular permissions, role inheritance, and audit trails. Secure access management for L1-L4 teams with compliance-ready access controls and monitoring.</div>
-                
-                <div style="margin-top: 20px; padding: 20px; background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); border-radius: 12px; color: white; position: relative; overflow: hidden;">
-                    <div style="position: absolute; top: -10px; right: -10px; font-size: 3rem; opacity: 0.1;">🛡️</div>
-                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
-                        <div style="font-size: 1.1rem; font-weight: 600;">Secure Access Control</div>
-                        <div style="font-size: 2rem;">🔐</div>
+                <div class="feature-description">Advanced RBAC system with granular permissions, role inheritance, and
+                    audit trails. Secure access management for L1-L4 teams with compliance-ready access controls and
+                    monitoring.</div>
+
+                <div class="infographic-card infographic-card-rbac">
+                    <div class="infographic-card-bg-icon">🛡️</div>
+                    <div class="infographic-card-header">
+                        <div class="infographic-card-title">Secure Access Control</div>
+                        <div class="infographic-card-icon">🔐</div>
                     </div>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center;">
+
+                    <div class="infographic-card-content">
                         <div>
-                            <div style="font-size: 2.5rem; font-weight: 900; margin-bottom: 5px; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">L1-L4</div>
-                            <div style="font-size: 0.9rem; opacity: 0.9;">Team Levels</div>
+                            <div class="infographic-card-value">L1-L4</div>
+                            <div class="infographic-card-label">Team Levels</div>
                         </div>
-                        <div style="text-align: center;">
-                            <div style="width: 80px; height: 80px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; margin: 0 auto 10px;">
-                                <div style="font-size: 2rem;">🛡️</div>
+                        <div class="infographic-card-visual">
+                            <div class="infographic-card-circle">
+                                <div class="infographic-card-circle-icon">🛡️</div>
                             </div>
-                            <div style="font-size: 0.8rem; opacity: 0.8;">Compliance</div>
+                            <div class="infographic-card-circle-label">Compliance</div>
                         </div>
                     </div>
-                    
-                    <div style="margin-top: 15px; padding: 12px; background: rgba(255,255,255,0.1); border-radius: 8px; border-left: 4px solid rgba(255,255,255,0.3);">
-                        <div style="display: flex; align-items: center; gap: 10px;">
-                            <div style="font-size: 1.2rem;">✅</div>
-                            <div style="font-size: 0.9rem; font-weight: 500;">Granular permissions with audit trails and compliance controls</div>
+
+                    <div class="infographic-card-footer">
+                        <div class="infographic-card-footer-content">
+                            <div class="infographic-card-check">✅</div>
+                            <div class="infographic-card-text">Granular permissions with audit trails and compliance
+                                controls</div>
                         </div>
                     </div>
                 </div>
@@ -1254,41 +479,49 @@
 
         <div class="section-divider"></div>
 
-        <h3 style="color: #1e293b; margin-bottom: 20px; text-align: center; font-size: 1.4rem;">🚀 Enterprise-Grade Platform Capabilities</h3>
-        
+        <h3 class="section-header-enterprise">🚀 Enterprise-Grade Platform Capabilities</h3>
+
         <div class="features-grid">
             <div class="feature-card">
                 <div class="feature-icon">🌐</div>
                 <div class="feature-title">Multi-Jurisdiction Compliance</div>
-                <div class="feature-description">Built-in compliance frameworks for US, EU, Ukraine, and Moldova regulations. Automated compliance reporting, audit trails, and jurisdiction-specific security controls.</div>
+                <div class="feature-description">Built-in compliance frameworks for US, EU, Ukraine, and Moldova
+                    regulations. Automated compliance reporting, audit trails, and jurisdiction-specific security
+                    controls.</div>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🔒</div>
                 <div class="feature-title">Advanced Security & Compliance</div>
-                <div class="feature-description">Enterprise-grade security with SOC 2 compliance, encryption at rest and in transit, vulnerability scanning, and automated security incident response.</div>
+                <div class="feature-description">Enterprise-grade security with SOC 2 compliance, encryption at rest and
+                    in transit, vulnerability scanning, and automated security incident response.</div>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🎯</div>
                 <div class="feature-title">Enterprise Integration Hub</div>
-                <div class="feature-description">Seamless integration with enterprise tools: Active Directory, SSO, SIEM systems, ticketing platforms, and custom API endpoints for complete workflow automation.</div>
-            </div>
-            <div class="feature-card" style="position: relative; opacity: 0.8;">
-                <div style="position: absolute; top: 10px; right: 10px; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; padding: 4px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 600; z-index: 10;">COMING SOON</div>
+                <div class="feature-description">Seamless integration with enterprise tools: Active Directory, SSO, SIEM
+                    systems, ticketing platforms, and custom API endpoints for complete workflow automation.</div>
+        </div>
+            <div class="feature-card feature-card-coming-soon">
+                <div class="coming-soon-badge">COMING SOON</div>
                 <div class="feature-icon">🧠</div>
                 <div class="feature-title">AI-Powered Predictive Analytics</div>
-                <div class="feature-description">Machine learning algorithms that predict infrastructure scaling needs, identify potential issues before they occur, and optimize resource allocation based on historical patterns.</div>
+                <div class="feature-description">Machine learning algorithms that predict infrastructure scaling needs,
+                    identify potential issues before they occur, and optimize resource allocation based on historical
+                    patterns.</div>
             </div>
-            <div class="feature-card" style="position: relative; opacity: 0.8;">
-                <div style="position: absolute; top: 10px; right: 10px; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; padding: 4px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 600; z-index: 10;">COMING SOON</div>
+            <div class="feature-card feature-card-coming-soon">
+                <div class="coming-soon-badge">COMING SOON</div>
                 <div class="feature-icon">📊</div>
                 <div class="feature-title">Enterprise Reporting & Analytics</div>
-                <div class="feature-description">Comprehensive reporting dashboard with executive summaries, cost analysis, performance metrics, and customizable reports for stakeholders at all levels.</div>
+                <div class="feature-description">Comprehensive reporting dashboard with executive summaries, cost
+                    analysis, performance metrics, and customizable reports for stakeholders at all levels.</div>
             </div>
-            <div class="feature-card" style="position: relative; opacity: 0.8; background: linear-gradient(135deg, #fff 0%, #fef7ff 100%); border-left: 4px solid #f59e0b;">
-                <div style="position: absolute; top: 10px; right: 10px; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; padding: 4px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 600; z-index: 10;">COMING SOON</div>
+            <div class="feature-card feature-card-coming-soon-purple">
+                <div class="coming-soon-badge">COMING SOON</div>
                 <div class="feature-icon">⚡</div>
                 <div class="feature-title">Zero-Downtime Operations</div>
-                <div class="feature-description">99.99% uptime guarantee with automated failover, disaster recovery, and business continuity features ensuring uninterrupted service delivery.</div>
+                <div class="feature-description">99.99% uptime guarantee with automated failover, disaster recovery, and
+                    business continuity features ensuring uninterrupted service delivery.</div>
             </div>
         </div>
 
@@ -1303,26 +536,39 @@
         </div>
 
         <div class="strategic-quote">
-            "100% Moldova-Developed Innovation: When Adtelligent established their Moldova office in 2023, our team didn't just build software - we solved authentic enterprise challenges that the company faced through 15+ years of global growth. This showcases Moldova's capability to develop world-class solutions for international companies. Every line of code, every architectural decision, every innovation in Adt Infra Hub comes from Moldovan talent solving real-world enterprise problems."
+            "100% Moldova-Developed Innovation: When Adtelligent established their Moldova office in 2023, our team
+            didn't just build software - we solved authentic enterprise challenges that the company faced through 15+
+            years of global growth. This showcases Moldova's capability to develop world-class solutions for
+            international companies. Every line of code, every architectural decision, every innovation in Adt Infra Hub
+            comes from Moldovan talent solving real-world enterprise problems."
         </div>
 
         <h3>Four Pillars of Technical Innovation</h3>
         <div class="innovation-points">
             <div class="innovation-card">
                 <div class="innovation-title">1. Strategic Business Necessity</div>
-                <div class="innovation-description"><strong>Innovation:</strong> Not just a product, but the strategic vision materialized - "unite everything: visibility, automation, inventory, and control in one interface" as planned by Adtelligent's leadership for 2025.</div>
+                <div class="innovation-description"><strong>Innovation:</strong> Not just a product, but the strategic
+                    vision materialized - "unite everything: visibility, automation, inventory, and control in one
+                    interface" as planned by Adtelligent's leadership for 2025.</div>
             </div>
             <div class="innovation-card">
                 <div class="innovation-title">2. 15-Year Evolution Expertise</div>
-                <div class="innovation-description"><strong>Innovation:</strong> Built on authentic experience managing Adtelligent's infrastructure evolution from Ukrainian startup (2008) to multi-jurisdictional enterprise-scale (1000+ servers across US, EU, Ukraine, Moldova). No guesswork - pure experience translated into Moldova-developed innovation.</div>
+                <div class="innovation-description"><strong>Innovation:</strong> Built on authentic experience managing
+                    Adtelligent's infrastructure evolution from Ukrainian startup (2008) to multi-jurisdictional
+                    enterprise-scale (1000+ servers across US, EU, Ukraine, Moldova). No guesswork - pure experience
+                    translated into Moldova-developed innovation.</div>
             </div>
             <div class="innovation-card">
                 <div class="innovation-title">3. Enterprise-Grade Architecture</div>
-                <div class="innovation-description"><strong>Innovation:</strong> Designed to support advanced infrastructure initiatives: VRRP balancing, TLS/TCP offload, DPDK optimization - showcasing Moldova's capability in cutting-edge technology.</div>
+                <div class="innovation-description"><strong>Innovation:</strong> Designed to support advanced
+                    infrastructure initiatives: VRRP balancing, TLS/TCP offload, DPDK optimization - showcasing
+                    Moldova's capability in cutting-edge technology.</div>
             </div>
             <div class="innovation-card">
                 <div class="innovation-title">4. "Billions of Requests" Scale</div>
-                <div class="innovation-description"><strong>Innovation:</strong> Platform proven at massive scale - managing infrastructure that processes billions of requests across dozens of teams, hundreds of servers, with enterprise-grade reliability.</div>
+                <div class="innovation-description"><strong>Innovation:</strong> Platform proven at massive scale -
+                    managing infrastructure that processes billions of requests across dozens of teams, hundreds of
+                    servers, with enterprise-grade reliability.</div>
             </div>
         </div>
 
@@ -1330,10 +576,22 @@
 
         <h3>Technical Architecture Excellence</h3>
         <div class="metrics-grid">
-            <div class="metric-item"><div class="metric-value">Microservices</div><div class="metric-label">Scalable Architecture</div></div>
-            <div class="metric-item"><div class="metric-value">API-First</div><div class="metric-label">Integration Ready</div></div>
-            <div class="metric-item"><div class="metric-value">Multi-Cloud</div><div class="metric-label">Provider Agnostic</div></div>
-            <div class="metric-item"><div class="metric-value">Real-time</div><div class="metric-label">Live Monitoring</div></div>
+            <div class="metric-item">
+                <div class="metric-value">Microservices</div>
+                <div class="metric-label">Scalable Architecture</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">API-First</div>
+                <div class="metric-label">Integration Ready</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">Multi-Cloud</div>
+                <div class="metric-label">Provider Agnostic</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">Real-time</div>
+                <div class="metric-label">Live Monitoring</div>
+            </div>
         </div>
     </div>
 
@@ -1346,33 +604,61 @@
 
         <h3>Measurable Success Metrics</h3>
         <div class="metrics-grid">
-            <div class="metric-item"><div class="metric-value">40%</div><div class="metric-label">Reduction in Management Overhead</div></div>
-            <div class="metric-item"><div class="metric-value">25%</div><div class="metric-label">Infrastructure Cost Savings</div></div>
-            <div class="metric-item"><div class="metric-value">99.8%</div><div class="metric-label">System Uptime Achieved</div></div>
-            <div class="metric-item"><div class="metric-value">1000+</div><div class="metric-label">Servers Under Management</div></div>
+            <div class="metric-item">
+                <div class="metric-value">40%</div>
+                <div class="metric-label">Reduction in Management Overhead</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">25%</div>
+                <div class="metric-label">Infrastructure Cost Savings</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">99.8%</div>
+                <div class="metric-label">System Uptime Achieved</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">1000+</div>
+                <div class="metric-label">Servers Under Management</div>
+            </div>
         </div>
 
         <div class="strategic-quote">
-            "After 15+ years of infrastructure evolution (2008-2025), from Ukrainian startup to global enterprise, Adtelligent Group strategically identified the need for a unified management platform. When they established the Moldova office in 2023, Adt Infra Hub was developed by our Moldova team as the direct answer to this strategic vision. The platform now manages 1,000+ servers across multiple jurisdictions, supporting 'dozens of teams, hundreds of servers, billions of requests' with proven efficiency improvements and enterprise-grade reliability."
+            "After 15+ years of infrastructure evolution (2008-2025), from Ukrainian startup to global enterprise,
+            Adtelligent Group strategically identified the need for a unified management platform. When they established
+            the Moldova office in 2023, Adt Infra Hub was developed by our Moldova team as the direct answer to this
+            strategic vision. The platform now manages 1,000+ servers across multiple jurisdictions, supporting 'dozens
+            of teams, hundreds of servers, billions of requests' with proven efficiency improvements and
+            enterprise-grade reliability."
         </div>
 
         <h3>Commercial Strategy & Market Opportunity</h3>
         <div class="innovation-points">
             <div class="innovation-card">
                 <div class="innovation-title">🎯 Target Market</div>
-                <div class="innovation-description"><strong>Primary:</strong> Enterprise-scale companies with complex infrastructure evolution needs<br><strong>Sweet Spot:</strong> Companies managing 100+ servers across multiple providers and jurisdictions<br><strong>Market Size:</strong> Global infrastructure management market $15B+ and growing rapidly</div>
+                <div class="innovation-description"><strong>Primary:</strong> Enterprise-scale companies with complex
+                    infrastructure evolution needs<br><strong>Sweet Spot:</strong> Companies managing 100+ servers
+                    across multiple providers and jurisdictions<br><strong>Market Size:</strong> Global infrastructure
+                    management market $15B+ and growing rapidly</div>
             </div>
             <div class="innovation-card">
                 <div class="innovation-title">💡 Competitive Advantage</div>
-                <div class="innovation-description"><strong>Unique Position:</strong> Only platform born from 15+ years of real enterprise evolution experience<br><strong>Current Alternatives:</strong> Generic tools that don't understand infrastructure complexity<br><strong>Moat:</strong> Deep understanding of enterprise growth challenges + proven Moldova engineering excellence</div>
+                <div class="innovation-description"><strong>Unique Position:</strong> Only platform born from 15+ years
+                    of real enterprise evolution experience<br><strong>Current Alternatives:</strong> Generic tools that
+                    don't understand infrastructure complexity<br><strong>Moat:</strong> Deep understanding of
+                    enterprise growth challenges + proven Moldova engineering excellence</div>
             </div>
             <div class="innovation-card">
                 <div class="innovation-title">📈 Go-to-Market Strategy</div>
-                <div class="innovation-description"><strong>Phase 1:</strong> Enterprise sales in Moldova/Eastern Europe (proven market fit)<br><strong>Phase 2:</strong> EU/US expansion via strategic partnerships<br><strong>Phase 3:</strong> Global platform with regional compliance features</div>
+                <div class="innovation-description"><strong>Phase 1:</strong> Enterprise sales in Moldova/Eastern Europe
+                    (proven market fit)<br><strong>Phase 2:</strong> EU/US expansion via strategic
+                    partnerships<br><strong>Phase 3:</strong> Global platform with regional compliance features</div>
             </div>
             <div class="innovation-card">
                 <div class="innovation-title">💰 Revenue Model</div>
-                <div class="innovation-description"><strong>SaaS Subscription:</strong> $100-1,000/month per enterprise customer based on scale<br><strong>Market Validation:</strong> Internal deployment proves product-market fit<br><strong>Growth Path:</strong> Proven scalability from startup to enterprise needs</div>
+                <div class="innovation-description"><strong>SaaS Subscription:</strong> $100-1,000/month per enterprise
+                    customer based on scale<br><strong>Market Validation:</strong> Internal deployment proves
+                    product-market fit<br><strong>Growth Path:</strong> Proven scalability from startup to enterprise
+                    needs</div>
             </div>
         </div>
     </div>
@@ -1388,52 +674,428 @@
         <div class="innovation-points">
             <div class="innovation-card">
                 <div class="innovation-title">✅ Authentic Moldova Innovation</div>
-                <div class="innovation-description">Genuine local innovation solving global challenges with homegrown talent - 100% Moldova-based team developing world-class enterprise solutions that compete internationally.</div>
+                <div class="innovation-description">Genuine local innovation solving global challenges with homegrown
+                    talent - 100% Moldova-based team developing world-class enterprise solutions that compete
+                    internationally.</div>
             </div>
             <div class="innovation-card">
                 <div class="innovation-title">🌟 World-Class Technical Excellence</div>
-                <div class="innovation-description">Technical excellence that competes and wins on the global stage - proven with 1,000+ servers managed, enterprise-grade reliability, and advanced technology implementation.</div>
+                <div class="innovation-description">Technical excellence that competes and wins on the global stage -
+                    proven with 1,000+ servers managed, enterprise-grade reliability, and advanced technology
+                    implementation.</div>
             </div>
             <div class="innovation-card">
                 <div class="innovation-title">📈 Proven Market Impact</div>
-                <div class="innovation-description">Real results from years of enterprise infrastructure management experience - 40% efficiency gains, 25% cost reduction, 99.8% uptime achieved at massive scale.</div>
+                <div class="innovation-description">Real results from years of enterprise infrastructure management
+                    experience - 40% efficiency gains, 25% cost reduction, 99.8% uptime achieved at massive scale.</div>
             </div>
             <div class="innovation-card">
                 <div class="innovation-title">🚀 Local to Global Transformation</div>
-                <div class="innovation-description">Converting local expertise into international opportunity - from Moldova office (2023) to global platform ready for international markets and enterprise customers.</div>
+                <div class="innovation-description">Converting local expertise into international opportunity - from
+                    Moldova office (2023) to global platform ready for international markets and enterprise customers.
+                </div>
             </div>
         </div>
 
         <div class="startup-highlight">
-            <h4 style="margin-bottom: 15px; color: #1e293b; font-size: 1.2rem;">Moldova's Global Innovation Success Story</h4>
-            <p style="color: #475569; font-size: 1rem;">Adt Infra Hub represents everything MITP Awards celebrates: authentic Moldova innovation solving global challenges, world-class technical excellence, proven market impact, and the transformation of local expertise into international opportunity. We're not just building a startup - we're proving Moldova's place in the global technology leadership.</p>
+            <h4 class="section-header-moldova">Moldova's Global Innovation Success Story</h4>
+            <p class="text-moldova">Adt Infra Hub represents everything MITP Awards celebrates: authentic Moldova
+                innovation solving global challenges, world-class technical excellence, proven market impact, and the
+                transformation of local expertise into international opportunity. We're not just building a startup -
+                we're proving Moldova's place in the global technology leadership.</p>
         </div>
 
         <div class="section-divider"></div>
+    </div>
 
-        <div class="cta-section">
-            <h3 style="color: white; margin-bottom: 15px;">From Proven Internal Solution to Market-Ready Global Platform</h3>
-            <p style="font-size: 1.1rem; margin-bottom: 20px;">Adt Infra Hub represents the best of Moldova's IT innovation, ready to revolutionize how enterprises manage their server infrastructure globally.</p>
-            
-            <div class="contact-info">
-                <h4 style="margin-bottom: 15px; color: white;">Application Category: Best Startup</h4>
-                <p><strong>Company:</strong> ADS INTELLIGENCE MEDIA</p>
-                <p><strong>Email:</strong> info@adtelligent.com</p>
-                <p><strong>Phone:</strong> +1 833 222 2102</p>
-                <p><strong>Website:</strong> www.adtintelligent.com</p>
-                <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.8;">Copyright © 2025 ADS INTELLIGENCE MEDIA S.R.L.™. All rights reserved.</p>
+    <!-- Slide 5: Business Model & Team Excellence -->
+    <div id="business" class="slide">
+        <div class="slide-header">
+            <div class="slide-number">5</div>
+            <h2>Business Model & Team Excellence</h2>
+        </div>
+
+        <h3 class="section-header-enterprise">💰 Proven Business Model & Financial Performance</h3>
+        
+        <div class="business-grid">
+            <div class="business-card">
+                <div class="business-icon">💼</div>
+                <div class="business-title">Revenue Streams</div>
+                <div class="business-content">
+                    <div class="business-point">
+                        <strong>Enterprise Licensing:</strong> Annual enterprise platform licenses
+                    </div>
+                    <div class="business-point">
+                        <strong>SaaS Model:</strong> Subscription-based infrastructure management
+                    </div>
+                    <div class="business-point">
+                        <strong>Consulting Services:</strong> Implementation and optimization services
+                    </div>
+                </div>
             </div>
+
+            <div class="business-card">
+                <div class="business-icon">📊</div>
+                <div class="business-title">Financial Performance</div>
+                <div class="business-content">
+                    <div class="business-point">
+                        <strong>Cost Reduction:</strong> $10,000/month savings for customers
+                    </div>
+                    <div class="business-point">
+                        <strong>Efficiency Gains:</strong> 40% operational efficiency improvement
+                    </div>
+                    <div class="business-point">
+                        <strong>ROI:</strong> 25% cost reduction with 99.8% uptime guarantee
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="section-header-enterprise">👥 100% Moldova Team - World-Class Expertise</h3>
+        
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-icon">🎯</div>
+                <div class="team-title">Experience & Expertise</div>
+                <div class="team-content">
+                    <div class="team-point">
+                        <strong>15+ Years:</strong> Enterprise infrastructure management experience
+                    </div>
+                    <div class="team-point">
+                        <strong>Global Standards:</strong> International enterprise-grade development
+                    </div>
+                    <div class="team-point">
+                        <strong>Technical Excellence:</strong> Proprietary technology development
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-icon">🤝</div>
+                <div class="team-title">Collaboration & Innovation</div>
+                <div class="team-content">
+                    <div class="team-point">
+                        <strong>Local Talent:</strong> 100% Moldova-based development team
+                    </div>
+                    <div class="team-point">
+                        <strong>Global Integration:</strong> Seamless collaboration with international standards
+                    </div>
+                    <div class="team-point">
+                        <strong>Innovation Culture:</strong> Continuous improvement and technology advancement
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="strategic-quote">
+            "Our business model is built on proven results: real cost savings, measurable efficiency gains, and demonstrable ROI. The 100% Moldova team brings world-class expertise to solve global enterprise challenges."
+        </div>
+
+        <div class="section-divider"></div>
+    </div>
+
+    <!-- Slide 6: 5-Year Roadmap -->
+    <div id="roadmap" class="slide">
+        <div class="slide-header">
+            <div class="slide-number">6</div>
+            <h2>Strategic Roadmap: 5-Year Vision</h2>
+        </div>
+
+        <div class="roadmap-container">
+            <div class="roadmap-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-year">2025</div>
+                        <div class="timeline-icon">🚀</div>
+                    </div>
+                    <div class="timeline-content">
+                        <h4 class="timeline-title">Core Feature Implementation</h4>
+                        <p class="timeline-description">Complete core infrastructure features and AI-powered analytics. Implement advanced monitoring, predictive analytics, and automated resource optimization.</p>
+                        <div class="timeline-metrics">
+                            <span class="timeline-metric">AI Analytics Engine</span>
+                            <span class="timeline-metric">Core Infrastructure</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-year">2026</div>
+                        <div class="timeline-icon">⚡</div>
+                    </div>
+                    <div class="timeline-content">
+                        <h4 class="timeline-title">Enterprise Features & Zero-Downtime</h4>
+                        <p class="timeline-description">Implement enterprise reporting capabilities, zero-downtime operations, and advanced security features. Complete internal deployment and testing.</p>
+                        <div class="timeline-metrics">
+                            <span class="timeline-metric">Zero-Downtime Operations</span>
+                            <span class="timeline-metric">Enterprise Reporting</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-year">2027</div>
+                        <div class="timeline-icon">🌍</div>
+                    </div>
+                    <div class="timeline-content">
+                        <h4 class="timeline-title">Market Launch & Expansion</h4>
+                        <p class="timeline-description">Launch Adt Infra Hub to global market after successful internal implementation. Establish partnerships and achieve first enterprise customers.</p>
+                        <div class="timeline-metrics">
+                            <span class="timeline-metric">Global Market Entry</span>
+                            <span class="timeline-metric">First External Customers</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-year">2028</div>
+                        <div class="timeline-icon">⚡</div>
+                    </div>
+                    <div class="timeline-content">
+                        <h4 class="timeline-title">Customer Growth & Scaling</h4>
+                        <p class="timeline-description">Expand customer base and scale operations. Achieve 50+ enterprise customers with proven ROI and success stories.</p>
+                        <div class="timeline-metrics">
+                            <span class="timeline-metric">50+ Enterprise Customers</span>
+                            <span class="timeline-metric">Proven ROI</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-year">2029</div>
+                        <div class="timeline-icon">🏢</div>
+                    </div>
+                    <div class="timeline-content">
+                        <h4 class="timeline-title">Advanced Features & Partnerships</h4>
+                        <p class="timeline-description">Launch advanced enterprise features and establish strategic partnerships with major cloud providers and technology vendors.</p>
+                        <div class="timeline-metrics">
+                            <span class="timeline-metric">Strategic Partnerships</span>
+                            <span class="timeline-metric">Advanced Features</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-year">2030</div>
+                        <div class="timeline-icon">🌟</div>
+                    </div>
+                    <div class="timeline-content">
+                        <h4 class="timeline-title">Global Market Leadership</h4>
+                        <p class="timeline-description">Establish Adt Infra Hub as the leading infrastructure management platform globally. Expand to 500+ enterprise customers.</p>
+                        <div class="timeline-metrics">
+                            <span class="timeline-metric">500+ Enterprise Customers</span>
+                            <span class="timeline-metric">Global Leadership</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="strategic-quote">
+            "Our 5-year roadmap transforms Adt Infra Hub from a proven internal solution into the world's leading infrastructure management platform, showcasing Moldova's capability to develop and scale global enterprise solutions."
+        </div>
+
+        <div class="section-divider"></div>
+    </div>
+
+
+
+    <!-- Slide 7: Financial Performance & Traction -->
+    <div id="financial" class="slide">
+        <div class="slide-header">
+            <div class="slide-number">7</div>
+            <h2>Financial Performance & Market Traction</h2>
+        </div>
+
+        <h3>Proven Business Model & Growth Metrics</h3>
+        <div class="metrics-grid">
+            <div class="metric-item">
+                <div class="metric-value">$100,000+</div>
+                <div class="metric-label">Annual Infrastructure Cost Savings</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">40%</div>
+                <div class="metric-label">Operational Efficiency Gain</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">1000+</div>
+                <div class="metric-label">Servers Under Management</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">99.8%</div>
+                <div class="metric-label">System Reliability Achieved</div>
+            </div>
+        </div>
+
+        <h3>Revenue Model & Market Validation</h3>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <div class="feature-title">SaaS Subscription Model</div>
+                <div class="feature-description"><strong>Enterprise Tier:</strong> $500-2,000/month based on infrastructure scale<br><strong>Market Validation:</strong> Internal deployment proves product-market fit<br><strong>Growth Potential:</strong> $15B+ global infrastructure management market</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📈</div>
+                <div class="feature-title">Customer Acquisition Strategy</div>
+                <div class="feature-description"><strong>Target:</strong> Enterprise companies managing 100+ servers<br><strong>Approach:</strong> Direct sales with proven ROI demonstration<br><strong>Pipeline:</strong> 50+ qualified enterprise prospects identified</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <div class="feature-title">Unit Economics</div>
+                <div class="feature-description"><strong>Customer Lifetime Value:</strong> $50,000+ per enterprise customer<br><strong>Payback Period:</strong> 6-12 months through cost savings<br><strong>Scaling Model:</strong> High-margin SaaS with minimal incremental costs</div>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+    </div>
+
+    <!-- Slide 8: Risk Management & Sustainability -->
+    <div id="risk" class="slide">
+        <div class="slide-header">
+            <div class="slide-number">8</div>
+            <h2>Risk Management & Business Sustainability</h2>
+        </div>
+
+        <h3>Comprehensive Risk Mitigation Strategy</h3>
+        <div class="features-grid-4">
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <div class="feature-title">Technical Risk Management</div>
+                <div class="feature-description">Multi-layered security architecture, automated backup systems, disaster recovery protocols, and 24/7 monitoring to ensure business continuity and data protection.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <div class="feature-title">Market Risk Mitigation</div>
+                <div class="feature-description">Diversified customer base strategy, multiple revenue streams, competitive differentiation through unique value proposition, and strong intellectual property protection.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌍</div>
+                <div class="feature-title">Operational Risk Control</div>
+                <div class="feature-description">Redundant infrastructure, automated failover systems, comprehensive documentation, and cross-trained team members to ensure operational resilience.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚖️</div>
+                <div class="feature-title">Compliance & Regulatory</div>
+                <div class="feature-description">Built-in compliance frameworks for multiple jurisdictions, automated audit trails, regular security assessments, and proactive regulatory monitoring.</div>
+            </div>
+        </div>
+
+        <div style="margin-top: 40px;"></div>
+
+        <h3>Long-Term Sustainability Strategy</h3>
+        <div class="innovation-points">
+            <div class="innovation-card">
+                <div class="innovation-title">🌱 Environmental Sustainability</div>
+                <div class="innovation-description"><strong>Green Infrastructure:</strong> Optimized resource utilization reducing energy consumption by 30%<br><strong>Carbon Footprint:</strong> Automated scaling reduces unnecessary resource waste<br><strong>Future Goals:</strong> Carbon-neutral operations by 2027</div>
+            </div>
+            <div class="innovation-card">
+                <div class="innovation-title">💼 Business Continuity</div>
+                <div class="innovation-description"><strong>Revenue Diversification:</strong> Multiple service tiers and partnership revenue streams<br><strong>Geographic Expansion:</strong> Risk mitigation through market diversification<br><strong>Technology Evolution:</strong> Continuous innovation to maintain competitive advantage</div>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+    </div>
+
+    <!-- Slide 9: Social Impact & Community Contribution -->
+    <div id="social" class="slide">
+        <div class="slide-header">
+            <div class="slide-number">9</div>
+            <h2>Social Impact & Community Contribution</h2>
+        </div>
+
+        <h3>Moldova Tech Ecosystem Development</h3>
+        <div class="features-grid-4">
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <div class="feature-title">Local Talent Development</div>
+                <div class="feature-description">100% Moldova-based team development, providing world-class training, competitive salaries, and career growth opportunities in cutting-edge technology.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎓</div>
+                <div class="feature-title">Knowledge Transfer & Education</div>
+                <div class="feature-description">Partnerships with local universities, internship programs, technical workshops, and knowledge sharing initiatives to strengthen Moldova's tech education.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏢</div>
+                <div class="feature-title">Economic Impact</div>
+                <div class="feature-description">Direct contribution to Moldova's GDP through high-value tech exports, job creation, and positioning Moldova as a global technology innovation hub.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌟</div>
+                <div class="feature-title">Global Recognition</div>
+                <div class="feature-description">Showcasing Moldova's technical capabilities on the global stage, attracting international investment and partnerships to the local tech ecosystem.</div>
+            </div>
+        </div>
+
+        <div style="margin-top: 40px;"></div>
+
+        <h3>Community Initiatives & Future Plans</h3>
+        <div class="innovation-points">
+            <div class="innovation-card">
+                <div class="innovation-title">🎯 2025 Community Goals</div>
+                <div class="innovation-description"><strong>Team Expansion:</strong> Grow to 25+ Moldova-based engineers<br><strong>University Partnerships:</strong> Establish 3+ academic partnerships<br><strong>Tech Events:</strong> Host 5+ local tech meetups and workshops</div>
+            </div>
+            <div class="innovation-card">
+                <div class="innovation-title">🚀 Long-Term Impact Vision</div>
+                <div class="innovation-description"><strong>Ecosystem Building:</strong> Inspire 10+ new Moldova tech startups<br><strong>Global Positioning:</strong> Establish Moldova as Eastern Europe's infrastructure tech hub<br><strong>Investment Attraction:</strong> Bring $10M+ in tech investment to Moldova</div>
+            </div>
+        </div>
+
+        <div style="margin-top: 40px;"></div>
+
+        <div class="strategic-quote">
+            "Adt Infra Hub isn't just building a successful startup - we're building Moldova's future as a global technology leader. Every line of code, every innovation, every success story contributes to positioning Moldova as a world-class technology destination."
+        </div>
+
+        <div class="section-divider"></div>
+    </div>
+
+    <!-- Footer - Full Width -->
+        <div class="cta-section">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4 class="footer-title">🏆 MITP Awards 2025</h4>
+                <p class="footer-text">Best Startup Category</p>
+                <p class="footer-text">Moldova Innovation Excellence</p>
+                <p class="footer-text">World-Class Technology</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4 class="footer-title">📞 Contact</h4>
+                <p class="footer-text"><strong>Email:</strong> info@adtelligent.com</p>
+                <p class="footer-text"><strong>Phone:</strong> +1 833 222 2102</p>
+                <p class="footer-text"><strong>Website:</strong> www.adtintelligent.com</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4 class="footer-title">🏢 Company</h4>
+                <p class="footer-text"><strong>Company:</strong> ADS INTELLIGENCE MEDIA</p>
+                <p class="footer-text"><strong>Customer:</strong> Adtelligent Inc</p>
+                <p class="footer-text"><strong>Developer:</strong> Ads Intelligence Media S.R.L.</p>
+        </div>
+            
+
+    </div>
+        
+        <div class="footer-bottom">
+            <p class="text-copyright">© ADS INTELLIGENCE MEDIA S.R.L. 2025 - All rights reserved.</p>
+            <p class="text-copyright">Moldova Innovation Excellence | World-Class Technology Development</p>
         </div>
     </div>
 
     <script>
         // Smooth scrolling for navigation links
         document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function(e) {
+            link.addEventListener('click', function (e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href').substring(1);
                 const targetSection = document.getElementById(targetId);
-                
+
                 if (targetSection) {
                     targetSection.scrollIntoView({
                         behavior: 'smooth',
@@ -1444,10 +1106,10 @@
         });
 
         // Active navigation highlighting
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', function () {
             const sections = document.querySelectorAll('.slide');
             const navLinks = document.querySelectorAll('.nav-link');
-            
+
             let current = '';
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
@@ -1471,10 +1133,10 @@
         });
 
         // Add IDs to remaining slides
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const slides = document.querySelectorAll('.slide');
-            const slideIds = ['hero', 'problem', 'features', 'moldova', 'market', 'awards'];
-            
+            const slideIds = ['hero', 'problem', 'features', 'moldova', 'business', 'roadmap'];
+
             slides.forEach((slide, index) => {
                 if (slideIds[index]) {
                     slide.id = slideIds[index];
@@ -1483,4 +1145,5 @@
         });
     </script>
 </body>
+
 </html>
